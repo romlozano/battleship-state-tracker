@@ -26,6 +26,8 @@ jobs:
         run: dotnet test --no-build --verbosity normal
 
   push:
+    needs: build
+
     runs-on: ubuntu-latest
     if: github.event_name == 'push'
 
