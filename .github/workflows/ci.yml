@@ -1,8 +1,8 @@
 name: .NET CI with Publish
 
-on: [push]
-  #push:
-    #branches: [ main ]
+on:
+  push:
+    branches: [ main ]
 
 env:
   IMAGE_NAME: battleship-state-tracker-image
