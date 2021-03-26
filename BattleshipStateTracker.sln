@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BattleshipStateTracker.WebA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BattleshipStateTracker.BLL", "BattleshipStateTracker.BLL\BattleshipStateTracker.BLL.csproj", "{642DD740-F4BC-4637-ADE0-1A52F4A0F2F3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BattleshipStateTracker.DAL", "BattleshipStateTracker.DAL\BattleshipStateTracker.DAL.csproj", "{8A0BA05B-184C-4305-AA26-2CDD93E88AD1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{642DD740-F4BC-4637-ADE0-1A52F4A0F2F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{642DD740-F4BC-4637-ADE0-1A52F4A0F2F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{642DD740-F4BC-4637-ADE0-1A52F4A0F2F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A0BA05B-184C-4305-AA26-2CDD93E88AD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A0BA05B-184C-4305-AA26-2CDD93E88AD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A0BA05B-184C-4305-AA26-2CDD93E88AD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A0BA05B-184C-4305-AA26-2CDD93E88AD1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
