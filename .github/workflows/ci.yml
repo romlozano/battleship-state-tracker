@@ -1,12 +1,13 @@
 name: .NET CI with Publish
 
-on:
-  push:
-    branches: [ main ]
+on: push
+  #push:
+    #branches: [ main ]
 
 env:
   IMAGE_NAME: battleship-state-tracker-image
   DOCKERFILE_PATH: BattleshipStateTracker.WebAPI/Dockerfile
+  DOCKER_REPO: battleship-state-tracker
 
 jobs:
   build:
@@ -26,7 +27,7 @@ jobs:
         run: dotnet test --no-build --verbosity normal
 
   push:
-    needs: build
+    #needs: build
 
     runs-on: ubuntu-latest
     if: github.event_name == 'push'
@@ -38,26 +39,7 @@ jobs:
         run: docker build . --file $DOCKERFILE_PATH --tag $IMAGE_NAME
 
       - name: Log into registry
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Push image
-        run: |
-          IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/$IMAGE_NAME
-
-          # Change all uppercase to lowercase
-          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
-
-          # Strip git ref prefix from version
-          VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
-
-          # Strip "v" prefix from tag name
-          [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
-
-          # Use Docker `latest` tag convention
-          [ "$VERSION" == "main" ] && VERSION=latest
-
-          echo IMAGE_ID=$IMAGE_ID
-          echo VERSION=$VERSION
-
-          docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
-          docker push $IMAGE_ID:$VERSION
+        run: docker push {{ secrets.DOCKER_USERNAME }}/$DOCKER_REPO
