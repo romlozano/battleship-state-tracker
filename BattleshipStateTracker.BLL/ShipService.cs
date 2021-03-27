@@ -13,6 +13,8 @@ namespace BattleshipStateTracker.BLL
 
         public bool AddShip()
         {
+            boardRepository.AddShip();
+            
             return true;
         }
     }
