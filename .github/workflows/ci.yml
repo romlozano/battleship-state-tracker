@@ -46,5 +46,5 @@ jobs:
 
       - name: Push image
         run: | 
-          docker tag $IMAGE_NAME $DOCKER_USERNAME:$DOCKER_REPO
+          docker tag $IMAGE_NAME $DOCKER_USERNAME/$DOCKER_REPO
           docker push $DOCKER_USERNAME/$DOCKER_REPO
