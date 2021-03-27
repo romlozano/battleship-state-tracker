@@ -10,7 +10,7 @@ namespace BattleshipStateTracker.BLL.UnitTests
 
         internal Guid CreateBoard()
         {
-            throw new NotImplementedException();
+            return Guid.NewGuid();
         }
     }
 }
