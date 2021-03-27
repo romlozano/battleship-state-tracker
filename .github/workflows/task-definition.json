@@ -51,7 +51,7 @@
       "dockerLabels": null,
       "systemControls": null,
       "privileged": null,
-      "name": ""
+      "name": "battleship-state-tracker"
     }
   ],
   "placementConstraints": [],
