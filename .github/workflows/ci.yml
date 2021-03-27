@@ -1,8 +1,10 @@
 name: .NET CI with Publish
 
-on: push
-  #push:
-    #branches: [ main ]
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   build:
@@ -22,10 +24,10 @@ jobs:
         run: dotnet test --no-build --verbosity normal
 
   push:
-    
-    #needs: build
+    needs: build
 
     runs-on: ubuntu-latest
+
     if: github.event_name == 'push'
 
     env:
