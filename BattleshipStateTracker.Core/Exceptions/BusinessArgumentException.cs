@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace BattleshipStateTracker.Core
+namespace BattleshipStateTracker.Core.Exceptions
 {
     public class BusinessArgumentException : ArgumentException
     {

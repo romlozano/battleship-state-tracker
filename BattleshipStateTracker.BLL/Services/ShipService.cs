@@ -1,8 +1,9 @@
-﻿using BattleshipStateTracker.Core;
+﻿using BattleshipStateTracker.BLL.Models.Requests;
+using BattleshipStateTracker.Core.Exceptions;
 using BattleshipStateTracker.DAL.Repositories;
 using System;
 
-namespace BattleshipStateTracker.BLL
+namespace BattleshipStateTracker.BLL.Services
 {
     public class ShipService : IShipService
     {
@@ -13,12 +14,12 @@ namespace BattleshipStateTracker.BLL
             this.boardRepository = boardRepository;
         }
 
-        public bool AddShip(Guid guid)
+        public bool AddShip(Guid boardId, AddShipRequest request)
         {
-            var board = boardRepository.GetBoard(guid);
+            var board = boardRepository.GetBoard(boardId);
             if (board == null)
             {
-                throw new BusinessArgumentException("Guid is not valid", nameof(guid));
+                throw new BusinessArgumentException("Guid is not valid", nameof(boardId));
             }
 
             return boardRepository.AddShip();

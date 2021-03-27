@@ -2,7 +2,7 @@
 using BattleshipStateTracker.DAL.Repositories;
 using System;
 
-namespace BattleshipStateTracker.BLL
+namespace BattleshipStateTracker.BLL.Services
 {
     public class BoardService : IBoardService
     {
