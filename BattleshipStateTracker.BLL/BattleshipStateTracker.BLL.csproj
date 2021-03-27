@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BattleshipStateTracker.Core\BattleshipStateTracker.Core.csproj" />
     <ProjectReference Include="..\BattleshipStateTracker.DAL\BattleshipStateTracker.DAL.csproj" />
   </ItemGroup>
 
