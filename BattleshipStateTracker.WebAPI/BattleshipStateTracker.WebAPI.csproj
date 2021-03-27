@@ -4,16 +4,15 @@
     <TargetFramework>net5.0</TargetFramework>
     <UserSecretsId>dbecb995-eb33-43cd-b5b8-f1d7303aabbb</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+	<GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>C:\Users\MMAI\Source\Repos\battleship-state-tracker\BattleshipStateTracker.WebAPI\BattleshipStateTracker.WebAPI.xml</DocumentationFile>
     <WarningLevel>5</WarningLevel>
     <NoWarn>1701;1702;1591</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>C:\Users\MMAI\Source\Repos\battleship-state-tracker\BattleshipStateTracker.WebAPI\BattleshipStateTracker.WebAPI.xml</DocumentationFile>
     <NoWarn>1701;1702;1591</NoWarn>
   </PropertyGroup>
 
