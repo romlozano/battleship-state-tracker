@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BattleshipStateTracker.BLL\BattleshipStateTracker.BLL.csproj" />
+    <ProjectReference Include="..\BattleshipStateTracker.Core\BattleshipStateTracker.Core.csproj" />
   </ItemGroup>
 
 </Project>

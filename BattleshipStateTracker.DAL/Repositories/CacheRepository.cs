@@ -19,6 +19,11 @@ namespace BattleshipStateTracker.DAL.Repositories
             this.memoryCache = memoryCache;
         }
 
+        public Board GetBoard(Guid guid)
+        {
+            throw new NotImplementedException();
+        }
+
         public Guid SaveBoard(Board board)
         {
             board.Id = Guid.NewGuid();
