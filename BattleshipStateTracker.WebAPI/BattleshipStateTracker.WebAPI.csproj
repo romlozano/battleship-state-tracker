@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BattleshipStateTracker.BLL\BattleshipStateTracker.BLL.csproj" />
     <ProjectReference Include="..\BattleshipStateTracker.DAL\BattleshipStateTracker.DAL.csproj" />
   </ItemGroup>
 

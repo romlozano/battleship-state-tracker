@@ -4,7 +4,7 @@ using System;
 
 namespace BattleshipStateTracker.BLL
 {
-    public class BoardService
+    public class BoardService : IBoardService
     {
         private readonly IBoardRepository boardRepository;
 

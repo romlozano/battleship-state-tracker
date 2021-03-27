@@ -1,3 +1,4 @@
+using BattleshipStateTracker.BLL;
 using BattleshipStateTracker.DAL.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -45,6 +46,7 @@ namespace BattleshipStateTracker.WebAPI
             services.AddMemoryCache();
 
             services.AddTransient<IBoardRepository, CacheRepository>();
+            services.AddTransient<IBoardService, BoardService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
