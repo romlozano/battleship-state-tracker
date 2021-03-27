@@ -4,11 +4,6 @@ on: push
   #push:
     #branches: [ main ]
 
-env:
-  IMAGE_NAME: battleship-state-tracker-image
-  DOCKERFILE_PATH: BattleshipStateTracker.WebAPI/Dockerfile
-  DOCKER_REPO: battleship-state-tracker
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -27,10 +22,18 @@ jobs:
         run: dotnet test --no-build --verbosity normal
 
   push:
+    
     #needs: build
 
     runs-on: ubuntu-latest
     if: github.event_name == 'push'
+
+    env:
+      DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      DOCKERFILE_PATH: BattleshipStateTracker.WebAPI/Dockerfile
+      DOCKER_REPO: battleship-state-tracker
+      IMAGE_NAME: battleship-state-tracker-image
 
     steps:
       - uses: actions/checkout@v2
@@ -39,9 +42,6 @@ jobs:
         run: docker build . --file $DOCKERFILE_PATH --tag $IMAGE_NAME
 
       - name: Log into registry
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         run: echo "$DOCKER_PASSWORD" | docker login -u $DOCKER_USERNAME --password-stdin
 
       - name: Push image
