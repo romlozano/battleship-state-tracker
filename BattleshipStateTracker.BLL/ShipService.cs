@@ -10,7 +10,7 @@ namespace BattleshipStateTracker.BLL
     {
         public bool AddShip()
         {
-            throw new NotImplementedException();
+            return true;
         }
     }
 }
