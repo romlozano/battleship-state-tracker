@@ -1,4 +1,8 @@
-on: push # Testing Only
+on:
+  workflow_run:
+    workflows: [".NET CI with Publish"]
+    branches: [main]
+    types: [completed]
 
 name: Dev - Deploy to Amazon ECS
 
@@ -6,6 +10,8 @@ jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
+
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
     steps:
     - name: Checkout
@@ -22,7 +28,7 @@ jobs:
       id: task-def
       uses: aws-actions/amazon-ecs-render-task-definition@v1
       with:
-        task-definition: task-definition.json
+        task-definition: aws-ecs-task-definition.json
         container-name: battleship-state-tracker
         image: romlozano/battleship-state-tracker:latest
 
@@ -32,4 +38,4 @@ jobs:
         task-definition: ${{ steps.task-def.outputs.task-definition }}
         service: battleship-state-tracker
         cluster: battleship-state-tracker
-        wait-for-service-stability: true
+        wait-for-service-stability: false
