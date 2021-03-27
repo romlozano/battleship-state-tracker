@@ -30,7 +30,16 @@ namespace BattleshipStateTracker.WebAPI
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "BattleshipStateTracker.WebAPI", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo {
+                    Title = "BattleshipStateTracker.WebAPI",
+                    Version = "v1",
+                    Description = "OFX Coding Exam - Battleship State Tracker",
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Rex Lozano",
+                        Email = "rex@memyselfai.co"
+                    }
+                });
             });
         }
 
@@ -40,9 +49,10 @@ namespace BattleshipStateTracker.WebAPI
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "BattleshipStateTracker.WebAPI v1"));
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "BattleshipStateTracker.WebAPI v1"));
 
             app.UseRouting();
 
