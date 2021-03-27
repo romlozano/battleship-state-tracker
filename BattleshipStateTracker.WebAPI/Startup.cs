@@ -1,4 +1,5 @@
 using BattleshipStateTracker.BLL;
+using BattleshipStateTracker.BLL.Services;
 using BattleshipStateTracker.DAL.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

@@ -1,10 +1,11 @@
+using BattleshipStateTracker.BLL.Services;
 using BattleshipStateTracker.DAL.Models;
 using BattleshipStateTracker.DAL.Repositories;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
 
-namespace BattleshipStateTracker.BLL.UnitTests
+namespace BattleshipStateTracker.BLL.UnitTests.Tests
 {
     [TestClass]
     public class BoardService_CreateBoardShould
