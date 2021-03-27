@@ -1,4 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using BattleshipStateTracker.DAL.Repositories;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 
 namespace BattleshipStateTracker.BLL.UnitTests
 {
@@ -8,10 +10,21 @@ namespace BattleshipStateTracker.BLL.UnitTests
         [TestMethod]
         public void AddShip_ReturnTrue()
         {
-            var shipService = new ShipService();
+            var mock = new Mock<IBoardRepository>();
+            var shipService = new ShipService(mock.Object);
             bool result = shipService.AddShip();
 
             Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void AddShip_ShouldAddShip()
+        {
+            var mock = new Mock<IBoardRepository>();
+            var shipService = new ShipService(mock.Object);
+            bool result = shipService.AddShip();
+
+            mock.Verify(repo => repo.AddShip(), Times.Once);
         }
     }
 }

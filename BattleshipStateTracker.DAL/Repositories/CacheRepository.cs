@@ -26,5 +26,10 @@ namespace BattleshipStateTracker.DAL.Repositories
 
             return board.Id;
         }
+
+        public bool AddShip()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

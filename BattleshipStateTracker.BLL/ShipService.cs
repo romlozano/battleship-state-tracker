@@ -1,13 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BattleshipStateTracker.DAL.Repositories;
 
 namespace BattleshipStateTracker.BLL
 {
     public class ShipService : IShipService
     {
+        private readonly IBoardRepository boardRepository;
+
+        public ShipService(IBoardRepository boardRepository)
+        {
+            this.boardRepository = boardRepository;
+        }
+
         public bool AddShip()
         {
             return true;
