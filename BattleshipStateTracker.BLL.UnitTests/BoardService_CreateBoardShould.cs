@@ -1,4 +1,5 @@
-using BattleshipStateTracker.DAL;
+using BattleshipStateTracker.DAL.Models;
+using BattleshipStateTracker.DAL.Repositories;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
@@ -15,6 +16,7 @@ namespace BattleshipStateTracker.BLL.UnitTests
         public void TestInitialize()
         {
             mock = new Mock<IBoardRepository>();
+            mock.Setup(repo => repo.SaveBoard(It.IsAny<Board>())).Returns(It.IsAny<Guid>());
             boardService = new BoardService(mock.Object);
         }
 

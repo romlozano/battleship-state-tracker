@@ -1,4 +1,5 @@
-﻿using BattleshipStateTracker.DAL;
+﻿using BattleshipStateTracker.DAL.Models;
+using BattleshipStateTracker.DAL.Repositories;
 using System;
 
 namespace BattleshipStateTracker.BLL
@@ -14,9 +15,7 @@ namespace BattleshipStateTracker.BLL
 
         public Guid CreateBoard()
         {
-            boardRepository.SaveBoard(new Board());
-
-            return Guid.NewGuid();
+            return boardRepository.SaveBoard(new Board());
         }
     }
 }
