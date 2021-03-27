@@ -30,23 +30,23 @@ jobs:
 
     if: github.event_name == 'push'
 
-    env:
-      DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-      DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-      DOCKERFILE_PATH: BattleshipStateTracker.WebAPI/Dockerfile
-      DOCKER_REPO: battleship-state-tracker
-      IMAGE_NAME: battleship-state-tracker-image
-
     steps:
       - uses: actions/checkout@v2
 
       - name: Build image
-        run: docker build . --file $DOCKERFILE_PATH --tag $IMAGE_NAME
+        env:
+          DOCKERFILE_PATH: BattleshipStateTracker.WebAPI/Dockerfile
+        run: docker build . --file $DOCKERFILE_PATH
 
       - name: Log into registry
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         run: echo "$DOCKER_PASSWORD" | docker login -u $DOCKER_USERNAME --password-stdin
 
       - name: Push image
+        env:
+          DOCKER_REPO: romlozano/battleship-state-tracker
         run: | 
-          docker tag $IMAGE_NAME $DOCKER_USERNAME/$DOCKER_REPO
-          docker push $DOCKER_USERNAME/$DOCKER_REPO
+          docker tag $DOCKER_REPO
+          docker push $DOCKER_REPO
