@@ -29,7 +29,7 @@ namespace BattleshipStateTracker.DAL.Repositories
 
         public bool AddShip()
         {
-            throw new NotImplementedException();
+            return true;
         }
     }
 }

@@ -7,11 +7,20 @@ namespace BattleshipStateTracker.BLL.UnitTests
     [TestClass]
     public class ShipService_AddShipShould
     {
+        private Mock<IBoardRepository> mock;
+        private ShipService shipService;
+
+        [TestInitialize]
+        public void TestInitialize()
+        {
+            mock = new Mock<IBoardRepository>();
+            mock.Setup(repo => repo.AddShip()).Returns(true);
+            shipService = new ShipService(mock.Object);
+        }
+
         [TestMethod]
         public void AddShip_ReturnTrue()
         {
-            var mock = new Mock<IBoardRepository>();
-            var shipService = new ShipService(mock.Object);
             bool result = shipService.AddShip();
 
             Assert.IsTrue(result);
@@ -20,9 +29,7 @@ namespace BattleshipStateTracker.BLL.UnitTests
         [TestMethod]
         public void AddShip_ShouldAddShip()
         {
-            var mock = new Mock<IBoardRepository>();
-            var shipService = new ShipService(mock.Object);
-            bool result = shipService.AddShip();
+            shipService.AddShip();
 
             mock.Verify(repo => repo.AddShip(), Times.Once);
         }
