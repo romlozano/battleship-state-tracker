@@ -13,6 +13,8 @@ namespace BattleshipStateTracker.BLL.UnitTests
 
         public Guid CreateBoard()
         {
+            boardRepository.SaveBoard();
+
             return Guid.NewGuid();
         }
     }
