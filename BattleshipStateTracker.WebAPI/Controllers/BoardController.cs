@@ -5,7 +5,7 @@ using System;
 
 namespace BattleshipStateTracker.WebAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/board")]
     [ApiController]
     public class BoardController : ControllerBase
     {
@@ -16,15 +16,15 @@ namespace BattleshipStateTracker.WebAPI.Controllers
             this.boardService = boardService;
         }
 
-        [HttpPost]
+        [HttpPost("")]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Guid))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public ActionResult Post()
+        public ActionResult CreateBoard()
         {
             Guid id = boardService.CreateBoard();
 
-            return Created("", id);
+            return Created("", id); // TODO: Implement GetBoard and update uri
         }
     }
 }

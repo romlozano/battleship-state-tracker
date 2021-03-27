@@ -23,7 +23,7 @@ namespace BattleshipStateTracker.BLL.UnitTests
         [TestMethod]
         public void CreateBoard_ReturnGuid()
         {
-            var boardId = boardService.CreateBoard();
+            Guid boardId = boardService.CreateBoard();
 
             Assert.IsInstanceOfType(boardId, typeof(Guid));
         }
@@ -31,7 +31,7 @@ namespace BattleshipStateTracker.BLL.UnitTests
         [TestMethod]
         public void CreateBoard_ShouldSaveBoard()
         {
-            var boardId = boardService.CreateBoard();
+            boardService.CreateBoard();
 
             mock.Verify(repo => repo.SaveBoard(It.IsAny<Board>()), Times.Once);
         }
