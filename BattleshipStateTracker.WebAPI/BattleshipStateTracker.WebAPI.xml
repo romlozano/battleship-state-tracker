@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BattleshipStateTracker.WebAPI</name>
+    </assembly>
+    <members>
+        <member name="M:BattleshipStateTracker.WebAPI.Controllers.BoardsController.CreateBoard">
+            <summary>
+            Creates a board
+            </summary>
+            <returns>The id of the new board as a Guid</returns>
+            <response code="201">Returns the id of the new board as a Guid</response>
+        </member>
+    </members>
+</doc>
