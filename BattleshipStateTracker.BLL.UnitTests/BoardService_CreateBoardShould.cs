@@ -1,3 +1,4 @@
+using BattleshipStateTracker.DAL;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
@@ -20,7 +21,6 @@ namespace BattleshipStateTracker.BLL.UnitTests
         [TestMethod]
         public void CreateBoard_ReturnGuid()
         {
-            
             var boardId = boardService.CreateBoard();
 
             Assert.IsInstanceOfType(boardId, typeof(Guid));
@@ -31,7 +31,7 @@ namespace BattleshipStateTracker.BLL.UnitTests
         {
             var boardId = boardService.CreateBoard();
 
-            mock.Verify(repo => repo.SaveBoard(), Times.Once);
+            mock.Verify(repo => repo.SaveBoard(It.IsAny<Board>()), Times.Once);
         }
     }
 }

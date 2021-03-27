@@ -1,6 +1,7 @@
-﻿using System;
+﻿using BattleshipStateTracker.DAL;
+using System;
 
-namespace BattleshipStateTracker.BLL.UnitTests
+namespace BattleshipStateTracker.BLL
 {
     public class BoardService
     {
@@ -13,7 +14,7 @@ namespace BattleshipStateTracker.BLL.UnitTests
 
         public Guid CreateBoard()
         {
-            boardRepository.SaveBoard();
+            boardRepository.SaveBoard(new Board());
 
             return Guid.NewGuid();
         }

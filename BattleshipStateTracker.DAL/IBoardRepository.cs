@@ -1,7 +1,7 @@
-﻿namespace BattleshipStateTracker.BLL.UnitTests
+﻿namespace BattleshipStateTracker.DAL
 {
     public interface IBoardRepository
     {
-        void SaveBoard();
+        void SaveBoard(Board board);
     }
 }
