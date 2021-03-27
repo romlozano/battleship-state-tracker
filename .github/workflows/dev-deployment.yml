@@ -30,7 +30,7 @@ jobs:
         IMAGE_TAG: ${{ github.sha }}
         DOCKERFILE_PATH: BattleshipStateTracker.WebAPI/Dockerfile
       run: |
-        docker build . --file $DOCKERFILE_PATH --tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+        docker build . --file $DOCKERFILE_PATH --tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
 
