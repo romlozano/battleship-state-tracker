@@ -2,13 +2,13 @@
 
 namespace BattleshipStateTracker.BLL.UnitTests
 {
-    internal class BoardService
+    public class BoardService
     {
         public BoardService()
         {
         }
 
-        internal Guid CreateBoard()
+        public Guid CreateBoard()
         {
             return Guid.NewGuid();
         }
