@@ -27,6 +27,7 @@
 1. .NET 5 ASP.NET Web API
 2. Github
 3. Github Actions
+4. Docker
 4. Docker Hub
 5. AWS EC2
 6. AWS ECS
@@ -35,6 +36,7 @@
 9. TDD
 10. Moq
 11. Automapper
+12. Swagger
 
 ## TODO's (Due to time constraints)
 
