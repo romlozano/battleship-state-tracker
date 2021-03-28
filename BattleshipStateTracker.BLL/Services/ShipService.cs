@@ -203,7 +203,7 @@ namespace BattleshipStateTracker.BLL.Services
                 }
             }
 
-            return AttackShipResultEnum.Sunk;
+            return AttackShipResultEnum.Miss;
         }
     }
 }
