@@ -46,6 +46,7 @@ namespace BattleshipStateTracker.BLL.Services
 
         public AttackShipResultEnum AttackShip(AttackShipRequest request)
         {
+            boardRepository.SaveBoard(new Board());
             return AttackShipResultEnum.Miss;
         }
 
