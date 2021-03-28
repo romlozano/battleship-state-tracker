@@ -46,6 +46,7 @@ namespace BattleshipStateTracker.BLL.Services
 
         public AttackShipResultEnum AttackShip(AttackShipRequest request)
         {
+            ValidateShipAttackPosition(request);
             Board board = boardRepository.GetBoard(request.BoardId);
             if (board == null)
             {
@@ -57,17 +58,20 @@ namespace BattleshipStateTracker.BLL.Services
             return AttackShipResultEnum.Miss;
         }
 
-        // TODO: Refactor this method to a ShipValidatonService. The corresponding unit tests should be refactored as well.
         private void ValidateShipStartPosition(AddShipRequest request)
         {
-            int shipXCoordinate = request.StartPosition.XCoordinate;
-            if (shipXCoordinate < MinShipXCoordinate || shipXCoordinate > MaxShipHorizontalLength)
+            ValidateShipCoordinates(request.StartPosition.XCoordinate, request.StartPosition.YCoordinate);
+        }
+
+        // TODO: Refactor this method to a ShipValidatonService. The corresponding unit tests should be refactored as well.
+        private void ValidateShipCoordinates(int shipXCoordinate, int shipYCoordinate)
+        {
+            if (shipXCoordinate < MinShipXCoordinate || shipXCoordinate >= MaxShipHorizontalLength)
             {
                 throw new BusinessArgumentException("Ship X-Coordinate is not valid", nameof(shipXCoordinate));
             }
 
-            int shipYCoordinate = request.StartPosition.YCoordinate;
-            if (shipYCoordinate < MinShipYCoordinate || shipYCoordinate > MaxShipHorizontalLength)
+            if (shipYCoordinate < MinShipYCoordinate || shipYCoordinate >= MaxShipVerticalLength)
             {
                 throw new BusinessArgumentException("Ship Y-Coordinate is not valid", nameof(shipYCoordinate));
             }
@@ -165,6 +169,11 @@ namespace BattleshipStateTracker.BLL.Services
                     }
                 }
             }
+        }
+
+        private void ValidateShipAttackPosition(AttackShipRequest request)
+        {
+            ValidateShipCoordinates(request.ShipPosition.XCoordinate, request.ShipPosition.YCoordinate);
         }
     }
 }
