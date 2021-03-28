@@ -1,7 +1,7 @@
 # battleship-state-tracker
 
 ## Additional mechanics
-1. A hit on an already hit ship position will report "miss"
+1. A hit on a position previously occupied by a sunk ship will report "miss"
 2. If all positions occupied by a ship are hit, report "sunk"
 3. If all ships are sunk, report "win"
 
