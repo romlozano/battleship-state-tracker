@@ -15,7 +15,7 @@ namespace BattleshipStateTracker.BLL.UnitTests.TestData
         public static Guid ValidBoardId => validBoardId;
         public static AddShipRequest ValidAddShipRequest => new AddShipRequest
         {
-            StartPosition = new ShipPosition { XCoordinate = 4, YCoordinate = 4 },
+            StartPosition = new ShipPosition { XCoordinate = 5, YCoordinate = 5 },
             ShipLength = 5,
             Direction = ShipDirectionEnum.Right
         };
@@ -75,14 +75,14 @@ namespace BattleshipStateTracker.BLL.UnitTests.TestData
 
         private static AddShipRequest AddShipRequestShipExceedsXDimension => new AddShipRequest
         {
-            StartPosition = new ShipPosition { XCoordinate = 4, YCoordinate = 0 },
+            StartPosition = new ShipPosition { XCoordinate = 5, YCoordinate = 0 },
             ShipLength = 6,
             Direction = ShipDirectionEnum.Right
         };
 
         private static AddShipRequest AddShipRequestShipExceedsYDimension => new AddShipRequest
         {
-            StartPosition = new ShipPosition { XCoordinate = 0, YCoordinate = 4 },
+            StartPosition = new ShipPosition { XCoordinate = 0, YCoordinate = 5 },
             ShipLength = 6,
             Direction = ShipDirectionEnum.Down
         };
