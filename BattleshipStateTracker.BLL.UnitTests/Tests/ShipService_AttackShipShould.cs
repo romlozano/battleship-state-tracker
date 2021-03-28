@@ -50,5 +50,14 @@ namespace BattleshipStateTracker.BLL.UnitTests.Tests
 
             Assert.ThrowsException<BusinessArgumentException>(() => shipService.AttackShip(ShipService_AttackShipShould_TestData.AttackShipRequestWithInValidBoardId));
         }
+
+        [DynamicData(nameof(ShipService_AttackShipShould_TestData.GetInvalidAttackShipRequestData), typeof(ShipService_AttackShipShould_TestData), DynamicDataSourceType.Method)]
+        [DataTestMethod]
+        public void AddShip_ShouldThrowBusinessArgumentException_IfAttackShipRequestIsInvalid(AttackShipRequest request)
+        {
+            mock.Setup(repo => repo.GetBoard(It.Is<Guid>(id => id == ShipService_AttackShipShould_TestData.ValidBoardId))).Returns(new Board());
+
+            Assert.ThrowsException<BusinessArgumentException>(() => shipService.AttackShip(request));
+        }
     }
 }
