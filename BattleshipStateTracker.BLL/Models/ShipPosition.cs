@@ -1,4 +1,4 @@
-﻿namespace BattleshipStateTracker.DAL.Models
+﻿namespace BattleshipStateTracker.BLL.Models
 {
     public class ShipPosition
     {

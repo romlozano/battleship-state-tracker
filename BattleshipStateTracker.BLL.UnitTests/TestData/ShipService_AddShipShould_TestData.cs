@@ -1,8 +1,9 @@
-﻿using BattleshipStateTracker.BLL.Models.Requests;
+﻿using BattleshipStateTracker.BLL.Models;
+using BattleshipStateTracker.BLL.Models.Requests;
 using BattleshipStateTracker.Core.Enums;
-using BattleshipStateTracker.DAL.Models;
 using System;
 using System.Collections.Generic;
+using DALModels = BattleshipStateTracker.DAL.Models;
 
 namespace BattleshipStateTracker.BLL.UnitTests.TestData
 {
