@@ -95,5 +95,14 @@ namespace BattleshipStateTracker.BLL.UnitTests.Tests
 
             Assert.AreEqual(AttackShipResultEnum.Sunk, result);
         }
+
+        [TestMethod]
+        public void Attackship_ShouldReturnWinAttackShipResultEnum_IfAllShipsWereSunk()
+        {
+            mock.Setup(repo => repo.GetBoard(It.Is<Guid>(id => id == ShipService_AttackShipShould_TestData.ValidBoardId))).Returns(ShipService_AttackShipShould_TestData.BoardWithOnlyOneShipThatIsAlmostSunk);
+            AttackShipResultEnum result = shipService.AttackShip(ShipService_AttackShipShould_TestData.AttackShipRequestWithHitCapability);
+
+            Assert.AreEqual(AttackShipResultEnum.Win, result);
+        }
     }
 }

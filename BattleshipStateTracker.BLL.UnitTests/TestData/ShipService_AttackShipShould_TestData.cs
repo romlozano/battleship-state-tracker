@@ -84,6 +84,35 @@ namespace BattleshipStateTracker.BLL.UnitTests.TestData
                         new ShipPosition { XCoordinate = 5, YCoordinate = 5},
                         new ShipPosition { XCoordinate = 7, YCoordinate = 5},
                     }
+                },
+                new Ship
+                {
+                    Positions = new List<ShipPosition>
+                    {
+                        new ShipPosition { XCoordinate = 0, YCoordinate = 0},
+                        new ShipPosition { XCoordinate = 0, YCoordinate = 1},
+                        new ShipPosition { XCoordinate = 0, YCoordinate = 2},
+                    }
+                }
+            }
+        };
+        public static Board BoardWithOnlyOneShipThatIsAlmostSunk => new Board
+        {
+            Id = validBoardId,
+            Ships = new List<Ship> {
+                new Ship
+                {
+                    Positions = new List<ShipPosition>
+                    {
+                        new ShipPosition { XCoordinate = 5, YCoordinate = 5},
+                        new ShipPosition { XCoordinate = 6, YCoordinate = 5},
+                        new ShipPosition { XCoordinate = 7, YCoordinate = 5},
+                    },
+                    AttackedPositions = new List<ShipPosition>
+                    {
+                        new ShipPosition { XCoordinate = 5, YCoordinate = 5},
+                        new ShipPosition { XCoordinate = 7, YCoordinate = 5},
+                    }
                 }
             }
         };
