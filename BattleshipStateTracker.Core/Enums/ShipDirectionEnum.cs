@@ -2,7 +2,7 @@
 {
     public enum ShipDirectionEnum
     {
-        Right = 0,
-        Down = 1
+        Right = 1,
+        Down = 2
     }
 }
