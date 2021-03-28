@@ -1,11 +1,11 @@
 # battleship-state-tracker
 
-## Assumptions
+## Additional mechanics
 1. A hit on an already hit ship position will report "miss"
 2. If all positions occupied by a ship are hit, report "sunk"
 3. If all ships are sunk, report "win"
 
-## How to quickly test the api
+## How to quickly test the API
 1. Go to [http://www.memyselfai.fun/swagger/index.html](http://www.memyselfai.fun/swagger/index.html)
 
 ## How to run the project locally
