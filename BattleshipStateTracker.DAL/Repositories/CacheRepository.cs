@@ -1,6 +1,7 @@
 ﻿using BattleshipStateTracker.DAL.Models;
 using Microsoft.Extensions.Caching.Memory;
 using System;
+using System.Collections.Generic;
 
 namespace BattleshipStateTracker.DAL.Repositories
 {
@@ -19,9 +20,18 @@ namespace BattleshipStateTracker.DAL.Repositories
             this.memoryCache = memoryCache;
         }
 
-        public Board GetBoard(Guid guid)
+        public Board GetBoard(Guid boardId)
         {
-            throw new NotImplementedException();
+            bool boardExists = memoryCache.TryGetValue(boardId, out Board board);
+
+            if (boardExists)
+            {
+                return board;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public Guid SaveBoard(Board board)
@@ -32,8 +42,13 @@ namespace BattleshipStateTracker.DAL.Repositories
             return board.Id;
         }
 
-        public bool AddShip()
+        public bool AddShip(Board board, IEnumerable<ShipPosition> shipPositions)
         {
+            Ship ship = new Ship();
+            ship.Positions = shipPositions;
+            board.Ships.Add(ship);
+            memoryCache.Set(board.Id, board);
+
             return true;
         }
     }
