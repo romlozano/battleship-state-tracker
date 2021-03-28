@@ -25,6 +25,7 @@ namespace BattleshipStateTracker.BLL.Services
         {
             ValidateShipStartPosition(request);
             ValidateShipLength(request);
+            ValidateShipDirection(request);
             ValidateIfShipCanFit(request);
 
             Board board = boardRepository.GetBoard(request.BoardId);
@@ -74,6 +75,17 @@ namespace BattleshipStateTracker.BLL.Services
                 {
                     throw new BusinessArgumentException("Ship Length is not valid", nameof(shipLength));
                 }
+            }
+        }
+
+        // TODO: Refactor this method to a ShipValidatonService. The corresponding unit tests should be refactored as well.
+        private void ValidateShipDirection(AddShipRequest request)
+        {
+            // TODO: Refactor and optimise enum comparison
+            string shipDirection = request.Direction;
+            if (shipDirection != ShipDirectionEnum.Down.ToString().ToLower() && shipDirection != ShipDirectionEnum.Right.ToString().ToLower())
+            {
+                throw new BusinessArgumentException("Ship direction is not valid", nameof(shipDirection));
             }
         }
 
