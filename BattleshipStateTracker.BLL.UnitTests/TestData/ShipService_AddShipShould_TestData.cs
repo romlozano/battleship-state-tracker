@@ -21,7 +21,7 @@ namespace BattleshipStateTracker.BLL.UnitTests.TestData
         };
         public static AddShipRequest AddShipRequestWithShipCollision => new AddShipRequest
         {
-            StartPosition = new ShipPosition { XCoordinate = 3, YCoordinate = 3 },
+            StartPosition = new ShipPosition { XCoordinate = 3, YCoordinate = 5 },
             ShipLength = 3,
             Direction = ShipDirectionEnum.Right
         };

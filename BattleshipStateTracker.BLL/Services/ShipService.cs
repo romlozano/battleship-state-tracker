@@ -4,6 +4,7 @@ using BattleshipStateTracker.Core.Exceptions;
 using BattleshipStateTracker.DAL.Models;
 using BattleshipStateTracker.DAL.Repositories;
 using System;
+using System.Collections.Generic;
 
 namespace BattleshipStateTracker.BLL.Services
 {
@@ -32,9 +33,13 @@ namespace BattleshipStateTracker.BLL.Services
                 throw new BusinessArgumentException("Board Id is not valid", nameof(boardId));
             }
 
+            IEnumerable<ShipPosition> shipPositions = GenerateShipPositions(request);
+            ValidateIfShipWillCollideWithExistingShip(board, shipPositions);
+
             return boardRepository.AddShip();
         }
 
+        // TODO: Refactor this method to a ShipValidatonService. The corresponding unit tests should be refactored as well.
         private void ValidateShipStartPosition(AddShipRequest request)
         {
             int shipXCoordinate = request.StartPosition.XCoordinate;
@@ -50,6 +55,7 @@ namespace BattleshipStateTracker.BLL.Services
             }
         }
 
+        // TODO: Refactor this method to a ShipValidatonService. The corresponding unit tests should be refactored as well.
         private void ValidateShipLength(AddShipRequest request)
         {
             int shipLength = request.ShipLength;
@@ -60,8 +66,7 @@ namespace BattleshipStateTracker.BLL.Services
                     throw new BusinessArgumentException("Ship Length is not valid", nameof(shipLength));
                 }
             }
-
-            if (request.Direction == ShipDirectionEnum.Down)
+            else if (request.Direction == ShipDirectionEnum.Down)
             {
                 if (shipLength < 0 || shipLength > MaxShipVerticalLength)
                 {
@@ -70,6 +75,7 @@ namespace BattleshipStateTracker.BLL.Services
             }
         }
 
+        // TODO: Refactor this method to a ShipValidatonService. The corresponding unit tests should be refactored as well.
         private void ValidateIfShipCanFit(AddShipRequest request)
         {
             if (request.Direction == ShipDirectionEnum.Right)
@@ -80,13 +86,55 @@ namespace BattleshipStateTracker.BLL.Services
                     throw new BusinessArgumentException("Ship will not fit on the board", "ship request");
                 }
             }
-
-            if (request.Direction == ShipDirectionEnum.Down)
+            else if (request.Direction == ShipDirectionEnum.Down)
             {
                 int maxShipYCoordinate = request.StartPosition.YCoordinate + request.ShipLength - 1;
                 if (maxShipYCoordinate >= MaxShipVerticalLength)
                 {
                     throw new BusinessArgumentException("Ship will not fit on the board", "ship request");
+                }
+            }
+        }
+
+        // TODO: Refactor this method to a different service and add unit tests
+        private IEnumerable<ShipPosition> GenerateShipPositions(AddShipRequest request)
+        {
+            ICollection<ShipPosition> shipPositions = new List<ShipPosition>();
+            if (request.Direction == ShipDirectionEnum.Right)
+            {
+                int startXCoordinate = request.StartPosition.XCoordinate;
+                for (int coordinate = startXCoordinate; coordinate < startXCoordinate + request.ShipLength; coordinate++)
+                {
+                    shipPositions.Add(new ShipPosition { XCoordinate = coordinate, YCoordinate = request.StartPosition.YCoordinate });
+                }
+            }
+            else if (request.Direction == ShipDirectionEnum.Down)
+            {
+                int startYCoordinate = request.StartPosition.YCoordinate;
+                for (int coordinate = startYCoordinate; coordinate < startYCoordinate + request.ShipLength; coordinate++)
+                {
+                    shipPositions.Add(new ShipPosition { XCoordinate = request.StartPosition.XCoordinate, YCoordinate = coordinate });
+                }
+            }
+
+            return shipPositions;
+        }
+
+        // TODO: Refactor this method to a ShipValidatonService. The corresponding unit tests should be refactored as well.
+        private void ValidateIfShipWillCollideWithExistingShip(Board board, IEnumerable<ShipPosition> shipPositions)
+        {
+            // TODO: Optimise this if possible
+            foreach (Ship ship in board.Ships)
+            {
+                foreach (ShipPosition existingShipPosition in ship.Positions)
+                {
+                    foreach (ShipPosition shipPosition in shipPositions)
+                    {
+                        if (shipPosition.XCoordinate == existingShipPosition.XCoordinate && shipPosition.YCoordinate == existingShipPosition.YCoordinate)
+                        {
+                            throw new ShipCollisionException();
+                        }
+                    }
                 }
             }
         }

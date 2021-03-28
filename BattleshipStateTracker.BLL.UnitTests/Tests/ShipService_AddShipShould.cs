@@ -62,7 +62,7 @@ namespace BattleshipStateTracker.BLL.UnitTests.Tests
         }
 
         [TestMethod]
-        public void AddShip_ShouldThrowShipCollisionException_IfAShipAlreadyExistsOnACoordinate(AddShipRequest request)
+        public void AddShip_ShouldThrowShipCollisionException_IfAShipAlreadyExistsOnACoordinate()
         {
             Ship ship = new Ship();
             Board board = new Board();
@@ -72,7 +72,8 @@ namespace BattleshipStateTracker.BLL.UnitTests.Tests
             board.Ships.Add(ship);
             mock.Setup(repo => repo.GetBoard(It.Is<Guid>(id => id == ShipService_AddShipShould_TestData.ValidBoardId))).Returns(board);
 
-            Assert.ThrowsException<ShipCollisionException>(() => shipService.AddShip(ShipService_AddShipShould_TestData.ValidBoardId, request));
+            Assert.ThrowsException<ShipCollisionException>(() => shipService.AddShip(ShipService_AddShipShould_TestData.ValidBoardId,
+                ShipService_AddShipShould_TestData.AddShipRequestWithShipCollision));
         }
     }
 }
