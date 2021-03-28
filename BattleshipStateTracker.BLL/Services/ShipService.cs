@@ -189,7 +189,7 @@ namespace BattleshipStateTracker.BLL.Services
                 {
                     if (attackedPosition.XCoordinate == attackPosition.XCoordinate && attackedPosition.YCoordinate == attackPosition.YCoordinate)
                     {
-                        return AttackShipResultEnum.Miss;
+                        return AttackShipResultEnum.Hit;
                     }
                 }
 
