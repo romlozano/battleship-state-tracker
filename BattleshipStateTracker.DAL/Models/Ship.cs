@@ -9,6 +9,6 @@ namespace BattleshipStateTracker.DAL.Models
             Positions = new List<ShipPosition>();
         }
 
-        public IEnumerable<ShipPosition> Positions { get; set; }
+        public ICollection<ShipPosition> Positions { get; set; }
     }
 }

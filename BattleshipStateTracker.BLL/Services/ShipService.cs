@@ -33,10 +33,10 @@ namespace BattleshipStateTracker.BLL.Services
                 throw new BusinessArgumentException("Board Id is not valid", nameof(boardId));
             }
 
-            IEnumerable<ShipPosition> shipPositions = GenerateShipPositions(request);
+            ICollection<ShipPosition> shipPositions = GenerateShipPositions(request);
             ValidateIfShipWillCollideWithExistingShip(board, shipPositions);
 
-            return boardRepository.AddShip();
+            return boardRepository.AddShip(board, shipPositions);
         }
 
         // TODO: Refactor this method to a ShipValidatonService. The corresponding unit tests should be refactored as well.
@@ -97,7 +97,7 @@ namespace BattleshipStateTracker.BLL.Services
         }
 
         // TODO: Refactor this method to a different service and add unit tests
-        private IEnumerable<ShipPosition> GenerateShipPositions(AddShipRequest request)
+        private ICollection<ShipPosition> GenerateShipPositions(AddShipRequest request)
         {
             ICollection<ShipPosition> shipPositions = new List<ShipPosition>();
             if (request.Direction == ShipDirectionEnum.Right)

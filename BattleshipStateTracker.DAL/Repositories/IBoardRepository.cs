@@ -8,6 +8,6 @@ namespace BattleshipStateTracker.DAL.Repositories
     {
         Board GetBoard(Guid boardId);
         Guid SaveBoard(Board board);
-        bool AddShip(Board board, IEnumerable<ShipPosition> shipPositions);
+        bool AddShip(Board board, ICollection<ShipPosition> shipPositions);
     }
 }

@@ -7,6 +7,7 @@ using BattleshipStateTracker.DAL.Repositories;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
+using System.Collections.Generic;
 
 namespace BattleshipStateTracker.BLL.UnitTests.Tests
 {
@@ -20,8 +21,7 @@ namespace BattleshipStateTracker.BLL.UnitTests.Tests
         public void TestInitialize()
         {
             mock = new Mock<IBoardRepository>();
-            mock.Setup(repo => repo.AddShip()).Returns(true);
-            
+            mock.Setup(repo => repo.AddShip(It.IsAny<Board>(), It.IsAny<ICollection<ShipPosition>>())).Returns(true);
             shipService = new ShipService(mock.Object);
         }
 
@@ -40,7 +40,7 @@ namespace BattleshipStateTracker.BLL.UnitTests.Tests
             mock.Setup(repo => repo.GetBoard(It.Is<Guid>(id => id == ShipService_AddShipShould_TestData.ValidBoardId))).Returns(new Board());
             shipService.AddShip(ShipService_AddShipShould_TestData.ValidBoardId, ShipService_AddShipShould_TestData.ValidAddShipRequest);
 
-            mock.Verify(repo => repo.AddShip(), Times.Once);
+            mock.Verify(repo => repo.AddShip(It.IsAny<Board>(), It.IsAny<ICollection<ShipPosition>>()), Times.Once);
         }
 
         [TestMethod]

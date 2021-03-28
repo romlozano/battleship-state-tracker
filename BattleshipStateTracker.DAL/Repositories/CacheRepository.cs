@@ -42,7 +42,7 @@ namespace BattleshipStateTracker.DAL.Repositories
             return board.Id;
         }
 
-        public bool AddShip(Board board, IEnumerable<ShipPosition> shipPositions)
+        public bool AddShip(Board board, ICollection<ShipPosition> shipPositions)
         {
             Ship ship = new Ship();
             ship.Positions = shipPositions;
