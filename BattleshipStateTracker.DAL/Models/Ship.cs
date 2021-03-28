@@ -7,8 +7,10 @@ namespace BattleshipStateTracker.DAL.Models
         public Ship()
         {
             Positions = new List<ShipPosition>();
+            AttackedPositions = new List<ShipPosition>();
         }
 
         public ICollection<ShipPosition> Positions { get; set; }
+        public ICollection<ShipPosition> AttackedPositions { get; set; }
     }
 }

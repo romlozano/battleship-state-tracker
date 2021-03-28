@@ -26,7 +26,7 @@ namespace BattleshipStateTracker.BLL.UnitTests.TestData
         public static AttackShipRequest AttackShipRequestWithHitCapability => new AttackShipRequest
         {
             BoardId = validBoardId,
-            ShipPosition = new ShipPosition { XCoordinate = 5, YCoordinate = 6 }
+            ShipPosition = new ShipPosition { XCoordinate = 6, YCoordinate = 5 }
         };
         public static Board BoardWithExistingShip => new Board
         {

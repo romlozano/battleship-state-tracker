@@ -53,10 +53,11 @@ namespace BattleshipStateTracker.BLL.Services
             {
                 throw new BusinessArgumentException("Board Id is not valid", nameof(request.BoardId));
             }
+            AttackShipResultEnum result = GetAttackResult(board, request.ShipPosition);
 
             boardRepository.SaveBoard(board);
 
-            return AttackShipResultEnum.Miss;
+            return result;
         }
 
         private void ValidateShipStartPosition(AddShipRequest request)
@@ -175,6 +176,34 @@ namespace BattleshipStateTracker.BLL.Services
         private void ValidateShipAttackPosition(AttackShipRequest request)
         {
             ValidateShipCoordinates(request.ShipPosition.XCoordinate, request.ShipPosition.YCoordinate);
+        }
+
+        // TODO: Refactor this method to a ShipValidatonService. The corresponding unit tests should be refactored as well.
+        private AttackShipResultEnum GetAttackResult(Board board, ShipPosition attackPosition)
+        {
+            // TODO: Optimise this if possible
+            foreach (Ship ship in board.Ships)
+            {
+                //foreach (ShipPosition position in ship.AttackedPositions)
+                //{
+                //    if (position.XCoordinate == attackPosition.XCoordinate && position.YCoordinate == attackPosition.YCoordinate)
+                //    {
+                //        return AttackShipResultEnum.Miss;
+                //    }
+                //}
+
+                foreach (ShipPosition position in ship.Positions)
+                {
+                    if (position.XCoordinate == attackPosition.XCoordinate && position.YCoordinate == attackPosition.YCoordinate)
+                    {
+                        ship.AttackedPositions.Add(new ShipPosition { XCoordinate = attackPosition.XCoordinate, YCoordinate = attackPosition.YCoordinate });
+
+                        return AttackShipResultEnum.Hit;
+                    }
+                }
+            }
+
+            return AttackShipResultEnum.Miss;
         }
     }
 }
