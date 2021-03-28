@@ -1,6 +1,7 @@
 ﻿using BattleshipStateTracker.Core.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using System;
 
 namespace BattleshipStateTracker.WebAPI.Filters
 {
@@ -31,7 +32,7 @@ namespace BattleshipStateTracker.WebAPI.Filters
                     StatusCode = 404,
                 };
             }
-            else
+            else if (context.Exception is Exception)
             {
                 context.Result = new ObjectResult("Something went wrong")
                 {
