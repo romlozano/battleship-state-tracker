@@ -47,6 +47,11 @@ namespace BattleshipStateTracker.BLL.Services
         public AttackShipResultEnum AttackShip(AttackShipRequest request)
         {
             Board board = boardRepository.GetBoard(request.BoardId);
+            if (board == null)
+            {
+                throw new BusinessArgumentException("Board Id is not valid", nameof(request.BoardId));
+            }
+
             boardRepository.SaveBoard(board);
 
             return AttackShipResultEnum.Miss;

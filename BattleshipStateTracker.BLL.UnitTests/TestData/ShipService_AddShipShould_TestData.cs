@@ -13,10 +13,15 @@ namespace BattleshipStateTracker.BLL.UnitTests.TestData
 
         public static Guid InvalidBoardId => invalidBoardId;
         public static Guid ValidBoardId => validBoardId;
+        public static AttackShipRequest AttackShipRequestWithValidBoardId => new AttackShipRequest
+        {
+            BoardId = validBoardId,
+            ShipPosition = new ShipPosition { XCoordinate = 5, YCoordinate = 5 }
+        };
         public static AttackShipRequest AttackShipRequestWithInValidBoardId => new AttackShipRequest
         {
             BoardId = invalidBoardId,
-            ShipPosition = new ShipPosition { XCoordinate = 0, YCoordinate = 0 }
+            ShipPosition = new ShipPosition { XCoordinate = 5, YCoordinate = 5 }
         };
     }
 }

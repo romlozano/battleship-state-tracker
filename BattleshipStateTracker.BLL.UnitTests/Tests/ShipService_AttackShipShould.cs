@@ -28,7 +28,8 @@ namespace BattleshipStateTracker.BLL.UnitTests.Tests
         [TestMethod]
         public void AttackShip_ReturnAttackShipResultEnum()
         {
-            AttackShipResultEnum result = shipService.AttackShip(new AttackShipRequest());
+            mock.Setup(repo => repo.GetBoard(It.Is<Guid>(id => id == ShipService_AttackShipShould_TestData.ValidBoardId))).Returns(new Board());
+            AttackShipResultEnum result = shipService.AttackShip(ShipService_AttackShipShould_TestData.AttackShipRequestWithValidBoardId);
 
             Assert.IsInstanceOfType(result, typeof(AttackShipResultEnum));
         }
@@ -36,7 +37,8 @@ namespace BattleshipStateTracker.BLL.UnitTests.Tests
         [TestMethod]
         public void AttackShip_ShouldCallSaveBoard()
         {
-            shipService.AttackShip(new AttackShipRequest());
+            mock.Setup(repo => repo.GetBoard(It.Is<Guid>(id => id == ShipService_AttackShipShould_TestData.ValidBoardId))).Returns(new Board());
+            shipService.AttackShip(ShipService_AttackShipShould_TestData.AttackShipRequestWithValidBoardId);
 
             mock.Verify(repo => repo.SaveBoard(It.IsAny<Board>()), Times.Once);
         }
