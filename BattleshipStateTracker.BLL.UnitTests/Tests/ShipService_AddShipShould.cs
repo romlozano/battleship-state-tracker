@@ -29,7 +29,7 @@ namespace BattleshipStateTracker.BLL.UnitTests.Tests
         public void AddShip_ReturnTrue()
         {
             mock.Setup(repo => repo.GetBoard(It.Is<Guid>(id => id == ShipService_AddShipShould_TestData.ValidBoardId))).Returns(new Board());
-            bool result = shipService.AddShip(ShipService_AddShipShould_TestData.ValidBoardId, ShipService_AddShipShould_TestData.ValidAddShipRequest);
+            bool result = shipService.AddShip(ShipService_AddShipShould_TestData.AddShipRequestWithValidBoardId);
 
             Assert.IsTrue(result);
         }
@@ -38,7 +38,7 @@ namespace BattleshipStateTracker.BLL.UnitTests.Tests
         public void AddShip_ShouldAddShip()
         {
             mock.Setup(repo => repo.GetBoard(It.Is<Guid>(id => id == ShipService_AddShipShould_TestData.ValidBoardId))).Returns(new Board());
-            shipService.AddShip(ShipService_AddShipShould_TestData.ValidBoardId, ShipService_AddShipShould_TestData.ValidAddShipRequest);
+            shipService.AddShip(ShipService_AddShipShould_TestData.AddShipRequestWithValidBoardId);
 
             mock.Verify(repo => repo.AddShip(It.IsAny<Board>(), It.IsAny<ICollection<ShipPosition>>()), Times.Once);
         }
@@ -48,8 +48,7 @@ namespace BattleshipStateTracker.BLL.UnitTests.Tests
         {
             mock.Setup(repo => repo.GetBoard(It.Is<Guid>(id => id == ShipService_AddShipShould_TestData.InvalidBoardId))).Returns((Board)null);
 
-            Assert.ThrowsException<BusinessArgumentException>(() => shipService.AddShip(ShipService_AddShipShould_TestData.InvalidBoardId,
-                ShipService_AddShipShould_TestData.ValidAddShipRequest));
+            Assert.ThrowsException<BusinessArgumentException>(() => shipService.AddShip(ShipService_AddShipShould_TestData.AddShipRequestWithInValidBoardId));
         }
 
         [DynamicData(nameof(ShipService_AddShipShould_TestData.GetInvalidAddShipRequestData), typeof(ShipService_AddShipShould_TestData), DynamicDataSourceType.Method)]
@@ -58,7 +57,7 @@ namespace BattleshipStateTracker.BLL.UnitTests.Tests
         {
             mock.Setup(repo => repo.GetBoard(It.Is<Guid>(id => id == ShipService_AddShipShould_TestData.ValidBoardId))).Returns(new Board());
 
-            Assert.ThrowsException<BusinessArgumentException>(() => shipService.AddShip(ShipService_AddShipShould_TestData.ValidBoardId, request));
+            Assert.ThrowsException<BusinessArgumentException>(() => shipService.AddShip(request));
         }
 
         [TestMethod]
@@ -72,8 +71,7 @@ namespace BattleshipStateTracker.BLL.UnitTests.Tests
             board.Ships.Add(ship);
             mock.Setup(repo => repo.GetBoard(It.Is<Guid>(id => id == ShipService_AddShipShould_TestData.ValidBoardId))).Returns(board);
 
-            Assert.ThrowsException<ShipCollisionException>(() => shipService.AddShip(ShipService_AddShipShould_TestData.ValidBoardId,
-                ShipService_AddShipShould_TestData.AddShipRequestWithShipCollision));
+            Assert.ThrowsException<ShipCollisionException>(() => shipService.AddShip(ShipService_AddShipShould_TestData.AddShipRequestWithShipCollision));
         }
     }
 }

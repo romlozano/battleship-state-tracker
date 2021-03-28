@@ -5,6 +5,6 @@ namespace BattleshipStateTracker.BLL.Services
 {
     public interface IShipService
     {
-        bool AddShip(Guid guid, AddShipRequest request);
+        bool AddShip(AddShipRequest request);
     }
 }

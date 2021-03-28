@@ -55,6 +55,7 @@ namespace BattleshipStateTracker.WebAPI
 
             services.AddTransient<IBoardRepository, CacheRepository>();
             services.AddTransient<IBoardService, BoardService>();
+            services.AddTransient<IShipService, ShipService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
