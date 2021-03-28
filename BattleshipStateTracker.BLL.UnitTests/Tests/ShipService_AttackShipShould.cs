@@ -44,11 +44,11 @@ namespace BattleshipStateTracker.BLL.UnitTests.Tests
         }
 
         [TestMethod]
-        public void AttackShip_ShouldThrowBusinessArgumentException_IfBoardIsInvalid()
+        public void AttackShip_ShouldThrowBusinessObjectNotFoundException_IfBoardDoesNotExists()
         {
             mock.Setup(repo => repo.GetBoard(It.Is<Guid>(id => id == ShipService_AttackShipShould_TestData.InvalidBoardId))).Returns((Board)null);
 
-            Assert.ThrowsException<BusinessArgumentException>(() => shipService.AttackShip(ShipService_AttackShipShould_TestData.AttackShipRequestWithInValidBoardId));
+            Assert.ThrowsException<BusinessObjectNotFoundException>(() => shipService.AttackShip(ShipService_AttackShipShould_TestData.AttackShipRequestWithInValidBoardId));
         }
 
         [DynamicData(nameof(ShipService_AttackShipShould_TestData.GetInvalidAttackShipRequestData), typeof(ShipService_AttackShipShould_TestData), DynamicDataSourceType.Method)]

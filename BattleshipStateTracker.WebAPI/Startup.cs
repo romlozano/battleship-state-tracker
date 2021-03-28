@@ -1,22 +1,16 @@
-using BattleshipStateTracker.BLL;
 using BattleshipStateTracker.BLL.Services;
 using BattleshipStateTracker.DAL.Repositories;
+using BattleshipStateTracker.WebAPI.Filters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace BattleshipStateTracker.WebAPI
 {
@@ -33,7 +27,7 @@ namespace BattleshipStateTracker.WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers()
+            services.AddControllers(options => options.Filters.Add(new HttpResponseExceptionFilter()))
                 .AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 
             services.AddSwaggerGen(c =>

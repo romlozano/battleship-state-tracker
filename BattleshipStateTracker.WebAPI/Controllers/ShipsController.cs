@@ -28,9 +28,11 @@ namespace BattleshipStateTracker.WebAPI.Controllers
         /// <returns>true</returns>
         /// <response code="201">true</response>
         /// <response code="400"></response>
+        /// <response code="404"></response>
         [HttpPost("")]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(bool))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<bool> AddShip(AddShipRequest request)
         {
             bool result = shipService.AddShip(request);
@@ -46,9 +48,11 @@ namespace BattleshipStateTracker.WebAPI.Controllers
         /// <returns>AttackShipResultEnum</returns>
         /// <response code="200">AttackShipResultEnum</response>
         /// <response code="400"></response>
+        /// <response code="404"></response>
         [HttpPost("attack")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AttackShipResultEnum))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<AttackShipResultEnum> AttackShip(AttackShipRequest request)
         {
             AttackShipResultEnum result = shipService.AttackShip(request);
