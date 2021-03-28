@@ -9,6 +9,7 @@ namespace BattleshipStateTracker.BLL.Services
 {
     public class ShipService : IShipService
     {
+        // TODO: Refactor the following const to appSettings.json
         private const int MinShipXCoordinate = 0;
         private const int MinShipYCoordinate = 0;
         private const int MaxShipHorizontalLength = 10;

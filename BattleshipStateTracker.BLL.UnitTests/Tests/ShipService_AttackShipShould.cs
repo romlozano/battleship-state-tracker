@@ -53,11 +53,20 @@ namespace BattleshipStateTracker.BLL.UnitTests.Tests
 
         [DynamicData(nameof(ShipService_AttackShipShould_TestData.GetInvalidAttackShipRequestData), typeof(ShipService_AttackShipShould_TestData), DynamicDataSourceType.Method)]
         [DataTestMethod]
-        public void AddShip_ShouldThrowBusinessArgumentException_IfAttackShipRequestIsInvalid(AttackShipRequest request)
+        public void AttackShip_ShouldThrowBusinessArgumentException_IfAttackShipRequestIsInvalid(AttackShipRequest request)
         {
             mock.Setup(repo => repo.GetBoard(It.Is<Guid>(id => id == ShipService_AttackShipShould_TestData.ValidBoardId))).Returns(new Board());
 
             Assert.ThrowsException<BusinessArgumentException>(() => shipService.AttackShip(request));
+        }
+
+        [TestMethod]
+        public void Attackship_ShouldReturnHitAttackShipResultEnum_IfShipPositionIsOccupied()
+        {
+            mock.Setup(repo => repo.GetBoard(It.Is<Guid>(id => id == ShipService_AttackShipShould_TestData.ValidBoardId))).Returns(ShipService_AttackShipShould_TestData.BoardWithExistingShip);
+            AttackShipResultEnum result = shipService.AttackShip(ShipService_AttackShipShould_TestData.AttackShipRequestWithHitCapability);
+
+            Assert.AreEqual(AttackShipResultEnum.Hit, result);
         }
     }
 }

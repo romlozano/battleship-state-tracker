@@ -23,6 +23,26 @@ namespace BattleshipStateTracker.BLL.UnitTests.TestData
             BoardId = invalidBoardId,
             ShipPosition = new ShipPosition { XCoordinate = 5, YCoordinate = 5 }
         };
+        public static AttackShipRequest AttackShipRequestWithHitCapability => new AttackShipRequest
+        {
+            BoardId = validBoardId,
+            ShipPosition = new ShipPosition { XCoordinate = 5, YCoordinate = 6 }
+        };
+        public static Board BoardWithExistingShip => new Board
+        {
+            Id = validBoardId,
+            Ships = new List<Ship> {
+                new Ship
+                {
+                    Positions = new List<ShipPosition>
+                    {
+                        new ShipPosition { XCoordinate = 5, YCoordinate = 5},
+                        new ShipPosition { XCoordinate = 6, YCoordinate = 5},
+                        new ShipPosition { XCoordinate = 7, YCoordinate = 5},
+                    }
+                }
+            }
+        };
         public static IEnumerable<object[]> GetInvalidAttackShipRequestData()
         {
             yield return new object[] { AttackShipRequestXCoordinateIsInvalid };
