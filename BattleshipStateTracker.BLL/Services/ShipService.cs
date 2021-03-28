@@ -199,6 +199,12 @@ namespace BattleshipStateTracker.BLL.Services
                         ship.AttackedPositions.Add(new ShipPosition { XCoordinate = attackPosition.XCoordinate, YCoordinate = attackPosition.YCoordinate });
                         if (ship.Positions.Count == ship.AttackedPositions.Count)
                         {
+                            board.Ships.Remove(ship);
+                            if (board.Ships.Count == 0)
+                            {
+                                return AttackShipResultEnum.Win;
+                            }
+
                             return AttackShipResultEnum.Sunk;
                         }
 
