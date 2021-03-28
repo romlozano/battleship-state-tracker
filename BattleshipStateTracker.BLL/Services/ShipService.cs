@@ -42,7 +42,7 @@ namespace BattleshipStateTracker.BLL.Services
 
         public AttackShipResultEnum AttackShip(AttackShipRequest request)
         {
-            throw new NotImplementedException();
+            return AttackShipResultEnum.Miss;
         }
 
         // TODO: Refactor this method to a ShipValidatonService. The corresponding unit tests should be refactored as well.
