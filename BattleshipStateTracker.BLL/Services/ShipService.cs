@@ -40,6 +40,11 @@ namespace BattleshipStateTracker.BLL.Services
             return boardRepository.AddShip(board, shipPositions);
         }
 
+        public AttackShipResultEnum AttackShip(AttackShipRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
         // TODO: Refactor this method to a ShipValidatonService. The corresponding unit tests should be refactored as well.
         private void ValidateShipStartPosition(AddShipRequest request)
         {
