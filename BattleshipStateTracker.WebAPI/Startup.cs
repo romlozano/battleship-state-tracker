@@ -1,4 +1,5 @@
 using BattleshipStateTracker.BLL;
+using BattleshipStateTracker.BLL.Services;
 using BattleshipStateTracker.DAL.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -45,8 +46,8 @@ namespace BattleshipStateTracker.WebAPI
                         Email = "rex@memyselfai.co"
                     }
                 });
-                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                string xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                string xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
             });
 
@@ -54,6 +55,7 @@ namespace BattleshipStateTracker.WebAPI
 
             services.AddTransient<IBoardRepository, CacheRepository>();
             services.AddTransient<IBoardService, BoardService>();
+            services.AddTransient<IShipService, ShipService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
