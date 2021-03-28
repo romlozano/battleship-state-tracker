@@ -14,13 +14,13 @@
 1. This project was developed using .NET 5 on Visual Studio 16.9.2 so it is recommended to have the same version of Visual Studio
 
 ### Using Docker on Windows
-1. Download Docker and set it to use Linux containers
+1. Install Docker and set it to use Linux containers
 2. Open Powershell and run the following command: `docker run -p 127.0.0.1:80:80 romlozano/battleship-state-tracker:latest`
 3. Visit http://localhost/swagger/index.html on your browser
 
 ## CI/CD Overview
 1. Automated build and test on submission of a PR
-2. Automated build and test on merge to main. If this is successful, a docker image is published to [Docker Hub](https://hub.docker.com/r/romlozano/battleship-state-tracker).
+2. Automated build and test on merge to main. If this is successful, a docker image is published to [Docker Hub](https://hub.docker.com/r/romlozano/battleship-state-tracker)
 3. If step 2 succeeds, the docker image is deployed to AWS ECS
 
 ## Tech Stack Overview
