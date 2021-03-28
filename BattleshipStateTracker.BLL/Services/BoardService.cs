@@ -15,7 +15,7 @@ namespace BattleshipStateTracker.BLL.Services
 
         public Guid CreateBoard()
         {
-            return boardRepository.SaveBoard(new Board());
+            return boardRepository.CreateBoard(new Board());
         }
     }
 }

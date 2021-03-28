@@ -3,13 +3,13 @@ using BattleshipStateTracker.Core.Enums;
 using BattleshipStateTracker.Core.Exceptions;
 using BattleshipStateTracker.DAL.Models;
 using BattleshipStateTracker.DAL.Repositories;
-using System;
 using System.Collections.Generic;
 
 namespace BattleshipStateTracker.BLL.Services
 {
     public class ShipService : IShipService
     {
+        // TODO: Refactor the following const to appSettings.json
         private const int MinShipXCoordinate = 0;
         private const int MinShipYCoordinate = 0;
         private const int MaxShipHorizontalLength = 10;
@@ -37,20 +37,43 @@ namespace BattleshipStateTracker.BLL.Services
             ICollection<ShipPosition> shipPositions = GenerateShipPositions(request);
             ValidateIfShipWillCollideWithExistingShip(board, shipPositions);
 
-            return boardRepository.AddShip(board, shipPositions);
+            Ship ship = new Ship();
+            ship.Positions = shipPositions;
+            board.Ships.Add(ship);
+            boardRepository.SaveBoard(board);
+
+            return true;
+        }
+
+        public AttackShipResultEnum AttackShip(AttackShipRequest request)
+        {
+            ValidateShipAttackPosition(request);
+            Board board = boardRepository.GetBoard(request.BoardId);
+            if (board == null)
+            {
+                throw new BusinessArgumentException("Board Id is not valid", nameof(request.BoardId));
+            }
+            AttackShipResultEnum result = GetAttackResult(board, request.ShipPosition);
+
+            boardRepository.SaveBoard(board);
+
+            return result;
+        }
+
+        private void ValidateShipStartPosition(AddShipRequest request)
+        {
+            ValidateShipCoordinates(request.StartPosition.XCoordinate, request.StartPosition.YCoordinate);
         }
 
         // TODO: Refactor this method to a ShipValidatonService. The corresponding unit tests should be refactored as well.
-        private void ValidateShipStartPosition(AddShipRequest request)
+        private void ValidateShipCoordinates(int shipXCoordinate, int shipYCoordinate)
         {
-            int shipXCoordinate = request.StartPosition.XCoordinate;
-            if (shipXCoordinate < MinShipXCoordinate || shipXCoordinate > MaxShipHorizontalLength)
+            if (shipXCoordinate < MinShipXCoordinate || shipXCoordinate >= MaxShipHorizontalLength)
             {
                 throw new BusinessArgumentException("Ship X-Coordinate is not valid", nameof(shipXCoordinate));
             }
 
-            int shipYCoordinate = request.StartPosition.YCoordinate;
-            if (shipYCoordinate < MinShipYCoordinate || shipYCoordinate > MaxShipHorizontalLength)
+            if (shipYCoordinate < MinShipYCoordinate || shipYCoordinate >= MaxShipVerticalLength)
             {
                 throw new BusinessArgumentException("Ship Y-Coordinate is not valid", nameof(shipYCoordinate));
             }
@@ -148,6 +171,49 @@ namespace BattleshipStateTracker.BLL.Services
                     }
                 }
             }
+        }
+
+        private void ValidateShipAttackPosition(AttackShipRequest request)
+        {
+            ValidateShipCoordinates(request.ShipPosition.XCoordinate, request.ShipPosition.YCoordinate);
+        }
+
+        // TODO: Refactor this method to a ShipValidatonService. The corresponding unit tests should be refactored as well.
+        private AttackShipResultEnum GetAttackResult(Board board, ShipPosition attackPosition)
+        {
+            // TODO: Optimise and refactor this
+            foreach (Ship ship in board.Ships)
+            {
+                foreach (ShipPosition attackedPosition in ship.AttackedPositions)
+                {
+                    if (attackedPosition.XCoordinate == attackPosition.XCoordinate && attackedPosition.YCoordinate == attackPosition.YCoordinate)
+                    {
+                        return AttackShipResultEnum.Miss;
+                    }
+                }
+
+                foreach (ShipPosition position in ship.Positions)
+                {
+                    if (position.XCoordinate == attackPosition.XCoordinate && position.YCoordinate == attackPosition.YCoordinate)
+                    {
+                        ship.AttackedPositions.Add(new ShipPosition { XCoordinate = attackPosition.XCoordinate, YCoordinate = attackPosition.YCoordinate });
+                        if (ship.Positions.Count == ship.AttackedPositions.Count)
+                        {
+                            board.Ships.Remove(ship);
+                            if (board.Ships.Count == 0)
+                            {
+                                return AttackShipResultEnum.Win;
+                            }
+
+                            return AttackShipResultEnum.Sunk;
+                        }
+
+                        return AttackShipResultEnum.Hit;
+                    }
+                }
+            }
+
+            return AttackShipResultEnum.Miss;
         }
     }
 }
