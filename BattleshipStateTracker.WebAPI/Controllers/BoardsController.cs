@@ -1,4 +1,5 @@
 ﻿using BattleshipStateTracker.BLL.Services;
+using BattleshipStateTracker.WebAPI.Models.Response;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -22,15 +23,15 @@ namespace BattleshipStateTracker.WebAPI.Controllers
         /// <summary>
         /// Creates a board
         /// </summary>
-        /// <returns>The id of the new board as a Guid</returns>
-        /// <response code="201">Returns the id of the new board as a Guid</response>
+        /// <returns>A board response object with id of the new board</returns>
+        /// <response code="201">A board response object with id of the new board</response>
         [HttpPost("")]
-        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Guid))]
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(CreateBoardResponse))]
         public ActionResult<Guid> CreateBoard()
         {
             Guid id = boardService.CreateBoard();
 
-            return Created("", id); // TODO: Implement GetBoard and update uri
+            return Created("", new CreateBoardResponse { BoardId = id }); // TODO: Implement GetBoard and update uri
         }
     }
 }

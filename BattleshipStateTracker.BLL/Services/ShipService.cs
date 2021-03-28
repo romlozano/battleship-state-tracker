@@ -31,7 +31,7 @@ namespace BattleshipStateTracker.BLL.Services
             Board board = boardRepository.GetBoard(request.BoardId);
             if (board == null)
             {
-                throw new BusinessArgumentException("Board Id is not valid", nameof(request.BoardId));
+                throw new BusinessObjectNotFoundException("Board does not exists");
             }
 
             ICollection<ShipPosition> shipPositions = GenerateShipPositions(request);
@@ -51,7 +51,7 @@ namespace BattleshipStateTracker.BLL.Services
             Board board = boardRepository.GetBoard(request.BoardId);
             if (board == null)
             {
-                throw new BusinessArgumentException("Board Id is not valid", nameof(request.BoardId));
+                throw new BusinessObjectNotFoundException("Board does not exists");
             }
             AttackShipResultEnum result = GetAttackResult(board, request.ShipPosition);
 
@@ -166,7 +166,7 @@ namespace BattleshipStateTracker.BLL.Services
                     {
                         if (shipPosition.XCoordinate == existingShipPosition.XCoordinate && shipPosition.YCoordinate == existingShipPosition.YCoordinate)
                         {
-                            throw new ShipCollisionException();
+                            throw new ShipCollisionException("Ship collision detected");
                         }
                     }
                 }
@@ -178,7 +178,7 @@ namespace BattleshipStateTracker.BLL.Services
             ValidateShipCoordinates(request.ShipPosition.XCoordinate, request.ShipPosition.YCoordinate);
         }
 
-        // TODO: Refactor this method to a ShipValidatonService. The corresponding unit tests should be refactored as well.
+        // TODO: Refactor this method to a different service. The corresponding unit tests should be refactored as well.
         private AttackShipResultEnum GetAttackResult(Board board, ShipPosition attackPosition)
         {
             // TODO: Optimise and refactor this
