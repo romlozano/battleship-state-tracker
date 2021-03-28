@@ -17,7 +17,7 @@ namespace BattleshipStateTracker.BLL.UnitTests.Tests
         public void TestInitialize()
         {
             mock = new Mock<IBoardRepository>();
-            mock.Setup(repo => repo.SaveBoard(It.IsAny<Board>())).Returns(It.IsAny<Guid>());
+            mock.Setup(repo => repo.CreateBoard(It.IsAny<Board>())).Returns(It.IsAny<Guid>());
             boardService = new BoardService(mock.Object);
         }
 
@@ -30,11 +30,11 @@ namespace BattleshipStateTracker.BLL.UnitTests.Tests
         }
 
         [TestMethod]
-        public void CreateBoard_ShouldSaveBoard()
+        public void CreateBoard_ShouldCallCreateBoard()
         {
             boardService.CreateBoard();
 
-            mock.Verify(repo => repo.SaveBoard(It.IsAny<Board>()), Times.Once);
+            mock.Verify(repo => repo.CreateBoard(It.IsAny<Board>()), Times.Once);
         }
     }
 }

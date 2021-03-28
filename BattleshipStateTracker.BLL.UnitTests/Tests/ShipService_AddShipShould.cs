@@ -21,7 +21,7 @@ namespace BattleshipStateTracker.BLL.UnitTests.Tests
         public void TestInitialize()
         {
             mock = new Mock<IBoardRepository>();
-            mock.Setup(repo => repo.AddShip(It.IsAny<Board>(), It.IsAny<ICollection<ShipPosition>>())).Returns(true);
+            mock.Setup(repo => repo.SaveBoard(It.IsAny<Board>()));
             shipService = new ShipService(mock.Object);
         }
 
@@ -35,12 +35,12 @@ namespace BattleshipStateTracker.BLL.UnitTests.Tests
         }
 
         [TestMethod]
-        public void AddShip_ShouldAddShip()
+        public void AddShip_ShouldCallSaveBoard()
         {
             mock.Setup(repo => repo.GetBoard(It.Is<Guid>(id => id == ShipService_AddShipShould_TestData.ValidBoardId))).Returns(new Board());
             shipService.AddShip(ShipService_AddShipShould_TestData.AddShipRequestWithValidBoardId);
 
-            mock.Verify(repo => repo.AddShip(It.IsAny<Board>(), It.IsAny<ICollection<ShipPosition>>()), Times.Once);
+            mock.Verify(repo => repo.SaveBoard(It.IsAny<Board>()), Times.Once);
         }
 
         [TestMethod]

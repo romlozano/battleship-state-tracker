@@ -3,7 +3,6 @@ using BattleshipStateTracker.Core.Enums;
 using BattleshipStateTracker.Core.Exceptions;
 using BattleshipStateTracker.DAL.Models;
 using BattleshipStateTracker.DAL.Repositories;
-using System;
 using System.Collections.Generic;
 
 namespace BattleshipStateTracker.BLL.Services
@@ -37,7 +36,12 @@ namespace BattleshipStateTracker.BLL.Services
             ICollection<ShipPosition> shipPositions = GenerateShipPositions(request);
             ValidateIfShipWillCollideWithExistingShip(board, shipPositions);
 
-            return boardRepository.AddShip(board, shipPositions);
+            Ship ship = new Ship();
+            ship.Positions = shipPositions;
+            board.Ships.Add(ship);
+            boardRepository.SaveBoard(board);
+
+            return true;
         }
 
         public AttackShipResultEnum AttackShip(AttackShipRequest request)

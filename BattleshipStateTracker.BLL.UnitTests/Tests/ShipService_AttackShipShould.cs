@@ -1,6 +1,7 @@
 ﻿using BattleshipStateTracker.BLL.Models.Requests;
 using BattleshipStateTracker.BLL.Services;
 using BattleshipStateTracker.Core.Enums;
+using BattleshipStateTracker.DAL.Models;
 using BattleshipStateTracker.DAL.Repositories;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -17,6 +18,7 @@ namespace BattleshipStateTracker.BLL.UnitTests.Tests
         public void TestInitialize()
         {
             mock = new Mock<IBoardRepository>();
+            mock.Setup(repo => repo.SaveBoard(It.IsAny<Board>()));
             shipService = new ShipService(mock.Object);
         }
 
@@ -26,6 +28,14 @@ namespace BattleshipStateTracker.BLL.UnitTests.Tests
             AttackShipResultEnum result = shipService.AttackShip(new AttackShipRequest());
 
             Assert.IsInstanceOfType(result, typeof(AttackShipResultEnum));
+        }
+
+        [TestMethod]
+        public void AttackShip_ShouldCallSaveBoard()
+        {
+            shipService.AttackShip(new AttackShipRequest());
+
+            mock.Verify(repo => repo.SaveBoard(It.IsAny<Board>()), Times.Once);
         }
     }
 }
