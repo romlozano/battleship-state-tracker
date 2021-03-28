@@ -60,16 +60,14 @@ namespace BattleshipStateTracker.BLL.Services
         private void ValidateShipLength(AddShipRequest request)
         {
             int shipLength = request.ShipLength;
-            // TODO: Refactor and optimise enum comparison
-            if (request.Direction == ShipDirectionEnum.Right.ToString().ToLower())
+            if (request.Direction == ShipDirectionEnum.Right)
             {
                 if (shipLength < 1 || shipLength > MaxShipHorizontalLength)
                 {
                     throw new BusinessArgumentException("Ship Length is not valid", nameof(shipLength));
                 }
             }
-            // TODO: Refactor and optimise enum comparison
-            else if (request.Direction == ShipDirectionEnum.Down.ToString().ToLower())
+            else if (request.Direction == ShipDirectionEnum.Down)
             {
                 if (shipLength < 0 || shipLength > MaxShipVerticalLength)
                 {
@@ -81,9 +79,8 @@ namespace BattleshipStateTracker.BLL.Services
         // TODO: Refactor this method to a ShipValidatonService. The corresponding unit tests should be refactored as well.
         private void ValidateShipDirection(AddShipRequest request)
         {
-            // TODO: Refactor and optimise enum comparison
-            string shipDirection = request.Direction;
-            if (shipDirection != ShipDirectionEnum.Down.ToString().ToLower() && shipDirection != ShipDirectionEnum.Right.ToString().ToLower())
+            ShipDirectionEnum shipDirection = request.Direction;
+            if (shipDirection != ShipDirectionEnum.Down && shipDirection != ShipDirectionEnum.Right)
             {
                 throw new BusinessArgumentException("Ship direction is not valid", nameof(shipDirection));
             }
@@ -92,8 +89,7 @@ namespace BattleshipStateTracker.BLL.Services
         // TODO: Refactor this method to a ShipValidatonService. The corresponding unit tests should be refactored as well.
         private void ValidateIfShipCanFit(AddShipRequest request)
         {
-            // TODO: Refactor and optimise enum comparison
-            if (request.Direction == ShipDirectionEnum.Right.ToString().ToLower())
+            if (request.Direction == ShipDirectionEnum.Right)
             {
                 int maxShipXCoordinate = request.StartPosition.XCoordinate + request.ShipLength - 1;
                 if (maxShipXCoordinate >= MaxShipHorizontalLength)
@@ -101,8 +97,7 @@ namespace BattleshipStateTracker.BLL.Services
                     throw new BusinessArgumentException("Ship will not fit on the board", "ship request");
                 }
             }
-            // TODO: Refactor and optimise enum comparison
-            else if (request.Direction == ShipDirectionEnum.Down.ToString().ToLower())
+            else if (request.Direction == ShipDirectionEnum.Down)
             {
                 int maxShipYCoordinate = request.StartPosition.YCoordinate + request.ShipLength - 1;
                 if (maxShipYCoordinate >= MaxShipVerticalLength)
@@ -116,7 +111,7 @@ namespace BattleshipStateTracker.BLL.Services
         private ICollection<ShipPosition> GenerateShipPositions(AddShipRequest request)
         {
             ICollection<ShipPosition> shipPositions = new List<ShipPosition>();
-            if (request.Direction == ShipDirectionEnum.Right.ToString().ToLower())
+            if (request.Direction == ShipDirectionEnum.Right)
             {
                 int startXCoordinate = request.StartPosition.XCoordinate;
                 for (int coordinate = startXCoordinate; coordinate < startXCoordinate + request.ShipLength; coordinate++)
@@ -124,7 +119,7 @@ namespace BattleshipStateTracker.BLL.Services
                     shipPositions.Add(new ShipPosition { XCoordinate = coordinate, YCoordinate = request.StartPosition.YCoordinate });
                 }
             }
-            else if (request.Direction == ShipDirectionEnum.Down.ToString().ToLower())
+            else if (request.Direction == ShipDirectionEnum.Down)
             {
                 int startYCoordinate = request.StartPosition.YCoordinate;
                 for (int coordinate = startYCoordinate; coordinate < startYCoordinate + request.ShipLength; coordinate++)

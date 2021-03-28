@@ -1,4 +1,5 @@
-﻿using BattleshipStateTracker.DAL.Models;
+﻿using BattleshipStateTracker.Core.Enums;
+using BattleshipStateTracker.DAL.Models;
 using System;
 
 namespace BattleshipStateTracker.BLL.Models.Requests
@@ -15,12 +16,12 @@ namespace BattleshipStateTracker.BLL.Models.Requests
         /// </summary>
         public ShipPosition StartPosition { get; set; }
         /// <summary>
-        /// The length of the ship [1-10]
+        /// The length of the ship
         /// </summary>
         public int ShipLength { get; set; }
         /// <summary>
-        /// The direction of the ship ["right", "down"]
+        /// The direction of the ship
         /// </summary>
-        public string Direction { get; set; }
+        public ShipDirectionEnum Direction { get; set; }
     }
 }

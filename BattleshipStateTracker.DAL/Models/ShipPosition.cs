@@ -4,11 +4,11 @@
     public class ShipPosition
     {
         /// <summary>
-        /// The x-coordinate of the ship's start position [0-9]
+        /// The x-coordinate of the ship's start position
         /// </summary>
         public int XCoordinate { get; set; }
         /// <summary>
-        /// The y-coordinate of the ship's start position [0-9]
+        /// The y-coordinate of the ship's start position
         /// </summary>
         public int YCoordinate { get; set; }
     }
