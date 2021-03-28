@@ -1,8 +1,8 @@
-﻿using BattleshipStateTracker.BLL.Models.Requests;
-using BattleshipStateTracker.Core.Enums;
-using BattleshipStateTracker.DAL.Models;
+﻿using BattleshipStateTracker.BLL.Models;
+using BattleshipStateTracker.BLL.Models.Requests;
 using System;
 using System.Collections.Generic;
+using DALModels = BattleshipStateTracker.DAL.Models;
 
 namespace BattleshipStateTracker.BLL.UnitTests.TestData
 {
@@ -33,85 +33,85 @@ namespace BattleshipStateTracker.BLL.UnitTests.TestData
             BoardId = validBoardId,
             ShipPosition = new ShipPosition { XCoordinate = 5, YCoordinate = 6 }
         };
-        public static Board BoardWithExistingShip => new Board
+        public static DALModels.Board BoardWithExistingShip => new DALModels.Board
         {
             Id = validBoardId,
-            Ships = new List<Ship> {
-                new Ship
+            Ships = new List<DALModels.Ship> {
+                new DALModels.Ship
                 {
-                    Positions = new List<ShipPosition>
+                    Positions = new List<DALModels.ShipPosition>
                     {
-                        new ShipPosition { XCoordinate = 5, YCoordinate = 5},
-                        new ShipPosition { XCoordinate = 6, YCoordinate = 5},
-                        new ShipPosition { XCoordinate = 7, YCoordinate = 5},
+                        new DALModels.ShipPosition { XCoordinate = 5, YCoordinate = 5},
+                        new DALModels.ShipPosition { XCoordinate = 6, YCoordinate = 5},
+                        new DALModels.ShipPosition { XCoordinate = 7, YCoordinate = 5},
                     }
                 }
             }
         };
-        public static Board BoardWithExistingShipHavingAttackedPosition => new Board
+        public static DALModels.Board BoardWithExistingShipHavingAttackedPosition => new DALModels.Board
         {
             Id = validBoardId,
-            Ships = new List<Ship> {
-                new Ship
+            Ships = new List<DALModels.Ship> {
+                new DALModels.Ship
                 {
-                    Positions = new List<ShipPosition>
+                    Positions = new List<DALModels.ShipPosition>
                     {
-                        new ShipPosition { XCoordinate = 5, YCoordinate = 5},
-                        new ShipPosition { XCoordinate = 6, YCoordinate = 5},
-                        new ShipPosition { XCoordinate = 7, YCoordinate = 5},
+                        new DALModels.ShipPosition { XCoordinate = 5, YCoordinate = 5},
+                        new DALModels.ShipPosition { XCoordinate = 6, YCoordinate = 5},
+                        new DALModels.ShipPosition { XCoordinate = 7, YCoordinate = 5},
                     },
-                    AttackedPositions = new List<ShipPosition>
+                    AttackedPositions = new List<DALModels.ShipPosition>
                     {
-                        new ShipPosition { XCoordinate = 6, YCoordinate = 5},
+                        new DALModels.ShipPosition { XCoordinate = 6, YCoordinate = 5},
                     }
                 }
             }
         };
-        public static Board BoardWithExistingShipThatIsAlmostSunk => new Board
+        public static DALModels.Board BoardWithExistingShipThatIsAlmostSunk => new DALModels.Board
         {
             Id = validBoardId,
-            Ships = new List<Ship> {
-                new Ship
+            Ships = new List<DALModels.Ship> {
+                new DALModels.Ship
                 {
-                    Positions = new List<ShipPosition>
+                    Positions = new List<DALModels.ShipPosition>
                     {
-                        new ShipPosition { XCoordinate = 5, YCoordinate = 5},
-                        new ShipPosition { XCoordinate = 6, YCoordinate = 5},
-                        new ShipPosition { XCoordinate = 7, YCoordinate = 5},
+                        new DALModels.ShipPosition { XCoordinate = 5, YCoordinate = 5},
+                        new DALModels.ShipPosition { XCoordinate = 6, YCoordinate = 5},
+                        new DALModels.ShipPosition { XCoordinate = 7, YCoordinate = 5},
                     },
-                    AttackedPositions = new List<ShipPosition>
+                    AttackedPositions = new List<DALModels.ShipPosition>
                     {
-                        new ShipPosition { XCoordinate = 5, YCoordinate = 5},
-                        new ShipPosition { XCoordinate = 7, YCoordinate = 5},
+                        new DALModels.ShipPosition { XCoordinate = 5, YCoordinate = 5},
+                        new DALModels.ShipPosition { XCoordinate = 7, YCoordinate = 5},
                     }
                 },
-                new Ship
+                new DALModels.Ship
                 {
-                    Positions = new List<ShipPosition>
+                    Positions = new List<DALModels.ShipPosition>
                     {
-                        new ShipPosition { XCoordinate = 0, YCoordinate = 0},
-                        new ShipPosition { XCoordinate = 0, YCoordinate = 1},
-                        new ShipPosition { XCoordinate = 0, YCoordinate = 2},
+                        new DALModels.ShipPosition { XCoordinate = 0, YCoordinate = 0},
+                        new DALModels.ShipPosition { XCoordinate = 0, YCoordinate = 1},
+                        new DALModels.ShipPosition { XCoordinate = 0, YCoordinate = 2},
                     }
                 }
             }
         };
-        public static Board BoardWithOnlyOneShipThatIsAlmostSunk => new Board
+        public static DALModels.Board BoardWithOnlyOneShipThatIsAlmostSunk => new DALModels.Board
         {
             Id = validBoardId,
-            Ships = new List<Ship> {
-                new Ship
+            Ships = new List<DALModels.Ship> {
+                new DALModels.Ship
                 {
-                    Positions = new List<ShipPosition>
+                    Positions = new List<DALModels.ShipPosition>
                     {
-                        new ShipPosition { XCoordinate = 5, YCoordinate = 5},
-                        new ShipPosition { XCoordinate = 6, YCoordinate = 5},
-                        new ShipPosition { XCoordinate = 7, YCoordinate = 5},
+                        new DALModels.ShipPosition { XCoordinate = 5, YCoordinate = 5},
+                        new DALModels.ShipPosition { XCoordinate = 6, YCoordinate = 5},
+                        new DALModels.ShipPosition { XCoordinate = 7, YCoordinate = 5},
                     },
-                    AttackedPositions = new List<ShipPosition>
+                    AttackedPositions = new List<DALModels.ShipPosition>
                     {
-                        new ShipPosition { XCoordinate = 5, YCoordinate = 5},
-                        new ShipPosition { XCoordinate = 7, YCoordinate = 5},
+                        new DALModels.ShipPosition { XCoordinate = 5, YCoordinate = 5},
+                        new DALModels.ShipPosition { XCoordinate = 7, YCoordinate = 5},
                     }
                 }
             }

@@ -30,6 +30,8 @@ namespace BattleshipStateTracker.WebAPI
             services.AddControllers(options => options.Filters.Add(new HttpResponseExceptionFilter()))
                 .AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {

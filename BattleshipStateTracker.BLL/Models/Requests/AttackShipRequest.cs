@@ -1,5 +1,4 @@
-﻿using BattleshipStateTracker.DAL.Models;
-using System;
+﻿using System;
 
 namespace BattleshipStateTracker.BLL.Models.Requests
 {

@@ -1,9 +1,10 @@
-﻿using BattleshipStateTracker.BLL.Models.Requests;
+﻿using BattleshipStateTracker.BLL.Models;
+using BattleshipStateTracker.BLL.Models.Requests;
 using BattleshipStateTracker.Core.Enums;
 using BattleshipStateTracker.Core.Exceptions;
-using BattleshipStateTracker.DAL.Models;
 using BattleshipStateTracker.DAL.Repositories;
 using System.Collections.Generic;
+using DALModels = BattleshipStateTracker.DAL.Models;
 
 namespace BattleshipStateTracker.BLL.Services
 {
@@ -28,16 +29,16 @@ namespace BattleshipStateTracker.BLL.Services
             ValidateShipDirection(request);
             ValidateIfShipCanFit(request);
 
-            Board board = boardRepository.GetBoard(request.BoardId);
+            DALModels.Board board = boardRepository.GetBoard(request.BoardId);
             if (board == null)
             {
                 throw new BusinessObjectNotFoundException("Board does not exists");
             }
 
-            ICollection<ShipPosition> shipPositions = GenerateShipPositions(request);
+            ICollection<DALModels.ShipPosition> shipPositions = GenerateShipPositions(request);
             ValidateIfShipWillCollideWithExistingShip(board, shipPositions);
 
-            Ship ship = new Ship();
+            DALModels.Ship ship = new DALModels.Ship();
             ship.Positions = shipPositions;
             board.Ships.Add(ship);
             boardRepository.SaveBoard(board);
@@ -48,7 +49,7 @@ namespace BattleshipStateTracker.BLL.Services
         public AttackShipResultEnum AttackShip(AttackShipRequest request)
         {
             ValidateShipAttackPosition(request);
-            Board board = boardRepository.GetBoard(request.BoardId);
+            DALModels.Board board = boardRepository.GetBoard(request.BoardId);
             if (board == null)
             {
                 throw new BusinessObjectNotFoundException("Board does not exists");
@@ -131,15 +132,15 @@ namespace BattleshipStateTracker.BLL.Services
         }
 
         // TODO: Refactor this method to a different service and add unit tests
-        private ICollection<ShipPosition> GenerateShipPositions(AddShipRequest request)
+        private ICollection<DALModels.ShipPosition> GenerateShipPositions(AddShipRequest request)
         {
-            ICollection<ShipPosition> shipPositions = new List<ShipPosition>();
+            ICollection<DALModels.ShipPosition> shipPositions = new List<DALModels.ShipPosition>();
             if (request.Direction == ShipDirectionEnum.Right)
             {
                 int startXCoordinate = request.StartPosition.XCoordinate;
                 for (int coordinate = startXCoordinate; coordinate < startXCoordinate + request.ShipLength; coordinate++)
                 {
-                    shipPositions.Add(new ShipPosition { XCoordinate = coordinate, YCoordinate = request.StartPosition.YCoordinate });
+                    shipPositions.Add(new DALModels.ShipPosition { XCoordinate = coordinate, YCoordinate = request.StartPosition.YCoordinate });
                 }
             }
             else if (request.Direction == ShipDirectionEnum.Down)
@@ -147,7 +148,7 @@ namespace BattleshipStateTracker.BLL.Services
                 int startYCoordinate = request.StartPosition.YCoordinate;
                 for (int coordinate = startYCoordinate; coordinate < startYCoordinate + request.ShipLength; coordinate++)
                 {
-                    shipPositions.Add(new ShipPosition { XCoordinate = request.StartPosition.XCoordinate, YCoordinate = coordinate });
+                    shipPositions.Add(new DALModels.ShipPosition { XCoordinate = request.StartPosition.XCoordinate, YCoordinate = coordinate });
                 }
             }
 
@@ -155,14 +156,14 @@ namespace BattleshipStateTracker.BLL.Services
         }
 
         // TODO: Refactor this method to a ShipValidatonService. The corresponding unit tests should be refactored as well.
-        private void ValidateIfShipWillCollideWithExistingShip(Board board, IEnumerable<ShipPosition> shipPositions)
+        private void ValidateIfShipWillCollideWithExistingShip(DALModels.Board board, IEnumerable<DALModels.ShipPosition> shipPositions)
         {
             // TODO: Optimise this if possible
-            foreach (Ship ship in board.Ships)
+            foreach (DALModels.Ship ship in board.Ships)
             {
-                foreach (ShipPosition existingShipPosition in ship.Positions)
+                foreach (DALModels.ShipPosition existingShipPosition in ship.Positions)
                 {
-                    foreach (ShipPosition shipPosition in shipPositions)
+                    foreach (DALModels.ShipPosition shipPosition in shipPositions)
                     {
                         if (shipPosition.XCoordinate == existingShipPosition.XCoordinate && shipPosition.YCoordinate == existingShipPosition.YCoordinate)
                         {
@@ -179,12 +180,12 @@ namespace BattleshipStateTracker.BLL.Services
         }
 
         // TODO: Refactor this method to a different service. The corresponding unit tests should be refactored as well.
-        private AttackShipResultEnum GetAttackResult(Board board, ShipPosition attackPosition)
+        private AttackShipResultEnum GetAttackResult(DALModels.Board board, ShipPosition attackPosition)
         {
             // TODO: Optimise and refactor this
-            foreach (Ship ship in board.Ships)
+            foreach (DALModels.Ship ship in board.Ships)
             {
-                foreach (ShipPosition attackedPosition in ship.AttackedPositions)
+                foreach (DALModels.ShipPosition attackedPosition in ship.AttackedPositions)
                 {
                     if (attackedPosition.XCoordinate == attackPosition.XCoordinate && attackedPosition.YCoordinate == attackPosition.YCoordinate)
                     {
@@ -192,11 +193,11 @@ namespace BattleshipStateTracker.BLL.Services
                     }
                 }
 
-                foreach (ShipPosition position in ship.Positions)
+                foreach (DALModels.ShipPosition position in ship.Positions)
                 {
                     if (position.XCoordinate == attackPosition.XCoordinate && position.YCoordinate == attackPosition.YCoordinate)
                     {
-                        ship.AttackedPositions.Add(new ShipPosition { XCoordinate = attackPosition.XCoordinate, YCoordinate = attackPosition.YCoordinate });
+                        ship.AttackedPositions.Add(new DALModels.ShipPosition { XCoordinate = attackPosition.XCoordinate, YCoordinate = attackPosition.YCoordinate });
                         if (ship.Positions.Count == ship.AttackedPositions.Count)
                         {
                             board.Ships.Remove(ship);

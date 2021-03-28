@@ -1,11 +1,12 @@
-﻿using BattleshipStateTracker.BLL.Models.Requests;
+﻿using AutoMapper;
 using BattleshipStateTracker.BLL.Services;
 using BattleshipStateTracker.Core.Enums;
+using BattleshipStateTracker.WebAPI.Models.Requests;
 using BattleshipStateTracker.WebAPI.Models.Response;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Net.Mime;
+using BLLModelRequests = BattleshipStateTracker.BLL.Models.Requests;
 
 namespace BattleshipStateTracker.WebAPI.Controllers
 {
@@ -15,10 +16,12 @@ namespace BattleshipStateTracker.WebAPI.Controllers
     public class ShipsController : ControllerBase
     {
         private readonly IShipService shipService;
+        private readonly IMapper mapper;
 
-        public ShipsController(IShipService shipService)
+        public ShipsController(IShipService shipService, IMapper mapper)
         {
             this.shipService = shipService;
+            this.mapper = mapper;
         }
 
         // POST api/ships
@@ -36,7 +39,7 @@ namespace BattleshipStateTracker.WebAPI.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<AddShipResponse> AddShip(AddShipRequest request)
         {
-            bool result = shipService.AddShip(request);
+            bool result = shipService.AddShip(mapper.Map<BLLModelRequests.AddShipRequest>(request));
 
             return Created("", new AddShipResponse { Success = result });
         }
@@ -56,9 +59,9 @@ namespace BattleshipStateTracker.WebAPI.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<AttackShipResponse> AttackShip(AttackShipRequest request)
         {
-            AttackShipResultEnum result = shipService.AttackShip(request);
+            AttackShipResultEnum result = shipService.AttackShip(mapper.Map<BLLModelRequests.AttackShipRequest>(request));
 
-            return Ok(new AttackShipResponse { AttackShipResult = result }); // TODO: Return a better response
+            return Ok(new AttackShipResponse { AttackShipResult = result });
         }
     }
 }
