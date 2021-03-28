@@ -77,5 +77,14 @@ namespace BattleshipStateTracker.BLL.UnitTests.Tests
 
             Assert.AreEqual(AttackShipResultEnum.Miss, result);
         }
+
+        [TestMethod]
+        public void Attackship_ShouldReturnMissAttackShipResultEnum_IfShipPositionIsNotOccupied()
+        {
+            mock.Setup(repo => repo.GetBoard(It.Is<Guid>(id => id == ShipService_AttackShipShould_TestData.ValidBoardId))).Returns(ShipService_AttackShipShould_TestData.BoardWithExistingShip);
+            AttackShipResultEnum result = shipService.AttackShip(ShipService_AttackShipShould_TestData.AttackShipRequestWithMissCapability);
+
+            Assert.AreEqual(AttackShipResultEnum.Miss, result);
+        }
     }
 }

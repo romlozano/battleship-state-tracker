@@ -184,9 +184,9 @@ namespace BattleshipStateTracker.BLL.Services
             // TODO: Optimise this if possible
             foreach (Ship ship in board.Ships)
             {
-                foreach (ShipPosition position in ship.AttackedPositions)
+                foreach (ShipPosition attackedPosition in ship.AttackedPositions)
                 {
-                    if (position.XCoordinate == attackPosition.XCoordinate && position.YCoordinate == attackPosition.YCoordinate)
+                    if (attackedPosition.XCoordinate == attackPosition.XCoordinate && attackedPosition.YCoordinate == attackPosition.YCoordinate)
                     {
                         return AttackShipResultEnum.Miss;
                     }
@@ -203,7 +203,7 @@ namespace BattleshipStateTracker.BLL.Services
                 }
             }
 
-            return AttackShipResultEnum.Miss;
+            return AttackShipResultEnum.Sunk;
         }
     }
 }
