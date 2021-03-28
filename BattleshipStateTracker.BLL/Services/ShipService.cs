@@ -74,7 +74,7 @@ namespace BattleshipStateTracker.BLL.Services
         {
             if (request.Direction == ShipDirectionEnum.Right)
             {
-                var maxShipXCoordinate = request.StartPosition.XCoordinate + request.ShipLength - 1;
+                int maxShipXCoordinate = request.StartPosition.XCoordinate + request.ShipLength - 1;
                 if (maxShipXCoordinate >= MaxShipHorizontalLength)
                 {
                     throw new BusinessArgumentException("Ship will not fit on the board", "ship request");
@@ -83,7 +83,7 @@ namespace BattleshipStateTracker.BLL.Services
 
             if (request.Direction == ShipDirectionEnum.Down)
             {
-                var maxShipYCoordinate = request.StartPosition.YCoordinate + request.ShipLength - 1;
+                int maxShipYCoordinate = request.StartPosition.YCoordinate + request.ShipLength - 1;
                 if (maxShipYCoordinate >= MaxShipVerticalLength)
                 {
                     throw new BusinessArgumentException("Ship will not fit on the board", "ship request");

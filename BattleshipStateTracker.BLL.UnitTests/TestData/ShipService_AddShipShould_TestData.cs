@@ -19,6 +19,12 @@ namespace BattleshipStateTracker.BLL.UnitTests.TestData
             ShipLength = 5,
             Direction = ShipDirectionEnum.Right
         };
+        public static AddShipRequest AddShipRequestWithShipCollision => new AddShipRequest
+        {
+            StartPosition = new ShipPosition { XCoordinate = 3, YCoordinate = 3 },
+            ShipLength = 3,
+            Direction = ShipDirectionEnum.Right
+        };
         public static IEnumerable<object[]> GetInvalidAddShipRequestData()
         {
             yield return new object[] { AddShipRequestXCoordinateIsInvalid };
