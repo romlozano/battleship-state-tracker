@@ -184,13 +184,13 @@ namespace BattleshipStateTracker.BLL.Services
             // TODO: Optimise this if possible
             foreach (Ship ship in board.Ships)
             {
-                //foreach (ShipPosition position in ship.AttackedPositions)
-                //{
-                //    if (position.XCoordinate == attackPosition.XCoordinate && position.YCoordinate == attackPosition.YCoordinate)
-                //    {
-                //        return AttackShipResultEnum.Miss;
-                //    }
-                //}
+                foreach (ShipPosition position in ship.AttackedPositions)
+                {
+                    if (position.XCoordinate == attackPosition.XCoordinate && position.YCoordinate == attackPosition.YCoordinate)
+                    {
+                        return AttackShipResultEnum.Miss;
+                    }
+                }
 
                 foreach (ShipPosition position in ship.Positions)
                 {
