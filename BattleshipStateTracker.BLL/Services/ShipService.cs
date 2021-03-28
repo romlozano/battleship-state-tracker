@@ -181,7 +181,7 @@ namespace BattleshipStateTracker.BLL.Services
         // TODO: Refactor this method to a ShipValidatonService. The corresponding unit tests should be refactored as well.
         private AttackShipResultEnum GetAttackResult(Board board, ShipPosition attackPosition)
         {
-            // TODO: Optimise this if possible
+            // TODO: Optimise and refactor this
             foreach (Ship ship in board.Ships)
             {
                 foreach (ShipPosition attackedPosition in ship.AttackedPositions)
@@ -197,6 +197,10 @@ namespace BattleshipStateTracker.BLL.Services
                     if (position.XCoordinate == attackPosition.XCoordinate && position.YCoordinate == attackPosition.YCoordinate)
                     {
                         ship.AttackedPositions.Add(new ShipPosition { XCoordinate = attackPosition.XCoordinate, YCoordinate = attackPosition.YCoordinate });
+                        if (ship.Positions.Count == ship.AttackedPositions.Count)
+                        {
+                            return AttackShipResultEnum.Sunk;
+                        }
 
                         return AttackShipResultEnum.Hit;
                     }
