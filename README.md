@@ -5,9 +5,6 @@
 2. If all positions occupied by a ship are hit, report "sunk"
 3. If all ships are sunk, report "win"
 
-## How to quickly test the API
-1. Go to [http://www.memyselfai.fun/swagger/index.html](http://www.memyselfai.fun/swagger/index.html)
-
 ## How to run the project locally
 
 ### Using Visual Studio
